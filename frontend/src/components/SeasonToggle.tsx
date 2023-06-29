@@ -7,7 +7,7 @@ export default function ToggleButtons(props: any) {
 
     const {alignment, setAlignment} = props;
     const handleAlignment = (
-        event: React.MouseEvent<HTMLElement, MouseEvent>,
+        _event: React.MouseEvent<HTMLElement, MouseEvent>,
         newAlignment: string | null,
     ) => {
         setAlignment(newAlignment);
