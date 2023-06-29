@@ -3,11 +3,9 @@ import axios from "axios";
 import {Theme} from "../utils/types.ts";
 import DisplayTheme from "./DisplayTheme.tsx";
 
-function DisplayImage() {
+function DisplayThemes() {
 
     const [themes, setThemes] = useState<Theme[]>([]);
-
-
 
     function fetchThemes() {
         axios.get("/api/theme")
@@ -29,4 +27,4 @@ function DisplayImage() {
     );
 }
 
-export default DisplayImage;
+export default DisplayThemes;

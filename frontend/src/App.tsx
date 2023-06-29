@@ -1,12 +1,12 @@
 import './App.css'
-import DisplayImage from "./components/DisplayImage.tsx";
+import DisplayThemes from "./components/DisplayThemes.tsx";
 
 function App() {
-    
+
 
   return (
     <>
-      <DisplayImage />
+      <DisplayThemes />
 
     </>
   )
