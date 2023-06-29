@@ -8,6 +8,7 @@ import java.util.UUID;
 @Repository
 public class ThemeRepo {
 
+
     private final List<Theme> themes;
 
     public ThemeRepo() {
@@ -23,4 +24,10 @@ public class ThemeRepo {
         return themes;
     }
 
+    public String createId(){
+        return UUID.randomUUID().toString().substring(0,8);
+    }
+
+
 }
+
