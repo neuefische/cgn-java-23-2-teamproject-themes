@@ -19,7 +19,7 @@ function DisplayImage() {
 
     return (
         <>
-            <img src={imageURL} alt="summer" />
+            <img src={imageURL} alt="Theme image" />
         </>
     );
 }
