@@ -1,21 +1,24 @@
 package de.neuefische.backend;
 
-
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
+import java.util.UUID;
+
+
 @Data
 public class Theme {
 
-    private String id;
+    private final String id;
     private String springUrl;
     private String summerUrl;
     private String autumnUrl;
     private String winterUrl;
 
-
-
+    public Theme (String springUrl, String summerUrl, String autumnUrl, String winterUrl) {
+        this.id = UUID.randomUUID().toString().substring(0,8);
+        this.springUrl = springUrl;
+        this.summerUrl = summerUrl;
+        this.autumnUrl = autumnUrl;
+        this.winterUrl = winterUrl;
+    }
 }
