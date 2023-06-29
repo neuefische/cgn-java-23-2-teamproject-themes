@@ -44,5 +44,4 @@ class ThemeControllerTest {
             .andExpect(MockMvcResultMatchers.jsonPath("$[0].winterUrl").value(expectedWinter))
             .andExpect(MockMvcResultMatchers.jsonPath("$[0].springUrl").value(expectedSpring));
     }
-
 }
