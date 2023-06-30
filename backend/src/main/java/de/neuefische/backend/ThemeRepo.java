@@ -1,11 +1,13 @@
 package de.neuefische.backend;
 
+import lombok.Data;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.UUID;
 
 @Repository
+@Data
 public class ThemeRepo {
 
 
