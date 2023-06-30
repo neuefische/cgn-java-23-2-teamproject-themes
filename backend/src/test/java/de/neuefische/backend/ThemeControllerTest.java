@@ -31,14 +31,27 @@ class ThemeControllerTest {
     String expectedSpring = "https://cdn.discordapp.com/attachments/1090325789939085312/1123893739421708328/00038" +
             "-162447185.png";
 
+
     String testDTOThemeJson = """
                            {
-                               "name": "DTO Dummy",
+                               "name": "Test Theme",
                                "springUrl": "https://cdn.discordapp.com/attachments/1090325789939085312/1123893739421708328/00038-162447185.png",
                                "summerUrl": "https://cdn.discordapp.com/attachments/1090325789939085312/1123893755842412616/00001-918857782.png",
                                "autumnUrl": "https://cdn.discordapp.com/attachments/1090325789939085312/1123893768257540137/00043-3644440715.png",
                                "winterUrl": "https://cdn.discordapp.com/attachments/1090325789939085312/1123893783323488316/00006-1847996727.png",
                                "seasonStatus": "SUMMER"
+                            }
+                        """;
+
+    String testThemeJson = """
+                           {
+                               "id": "12344445",
+                               "name": "Theme Theme",
+                               "springUrl": "https://cdn.discordapp.com/attachments/1090325789939085312/1123893739421708328/00038-162447185.png",
+                               "summerUrl": "https://cdn.discordapp.com/attachments/1090325789939085312/1123893755842412616/00001-918857782.png",
+                               "autumnUrl": "https://cdn.discordapp.com/attachments/1090325789939085312/1123893768257540137/00043-3644440715.png",
+                               "winterUrl": "https://cdn.discordapp.com/attachments/1090325789939085312/1123893783323488316/00006-1847996727.png",
+                               "seasonStatus": "WINTER"
                             }
                         """;
 
@@ -71,12 +84,39 @@ class ThemeControllerTest {
         )
         //THEN
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].name").value("DTO Dummy"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].name").value("Test Theme"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].summerUrl").value(expectedSummer))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].autumnUrl").value(expectedAutumn))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].winterUrl").value(expectedWinter))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].springUrl").value(expectedSpring))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].seasonStatus").value("SUMMER"));
+    }
+
+    @Test
+    @DirtiesContext
+    void expectUpdatedTheme_whenUpdatingTheme() throws Exception {
+        //Given
+        String expected = """
+                           {
+                               "id": "12344445",
+                               "name": "Theme Theme",
+                               "springUrl": "https://cdn.discordapp.com/attachments/1090325789939085312/1123893739421708328/00038-162447185.png",
+                               "summerUrl": "https://cdn.discordapp.com/attachments/1090325789939085312/1123893755842412616/00001-918857782.png",
+                               "autumnUrl": "https://cdn.discordapp.com/attachments/1090325789939085312/1123893768257540137/00043-3644440715.png",
+                               "winterUrl": "https://cdn.discordapp.com/attachments/1090325789939085312/1123893783323488316/00006-1847996727.png",
+                               "seasonStatus": "WINTER"
+                            }
+                        """;
+
+        //When
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/theme")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(testThemeJson))
+
+        //Then
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json(expected));
+
     }
 
 
