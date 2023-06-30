@@ -1,9 +1,7 @@
 package de.neuefische.backend;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,4 +21,12 @@ public class ThemeController {
     public List<Theme> getThemes(){
         return this.themeService.getThemes();
     }
+
+
+    @PutMapping("/theme/{id}")
+    public Theme changeSeason(@PathVariable String id, @RequestBody Theme theme) {
+        return themeService.updateThemeById(id, theme);
+    }
+
+
 }

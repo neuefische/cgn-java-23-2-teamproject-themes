@@ -3,13 +3,13 @@ package de.neuefische.backend;
 import lombok.Data;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @Repository
 @Data
 public class ThemeRepo {
-
 
     private final List<Theme> themes;
 
@@ -29,6 +29,17 @@ public class ThemeRepo {
 
     public String createId(){
         return UUID.randomUUID().toString().substring(0,8);
+    }
+
+    public Theme updateThemeById(String id, Theme theme) {
+        // update new theme in List "themes" and return updated theme
+        for (int i = 0; i < themes.size(); i++) {
+            if (themes.get(i).id().equals(id)) {
+                themes.set(i, theme);
+                return theme;
+            }
+        }
+        return null;
     }
 
 

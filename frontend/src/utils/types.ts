@@ -4,5 +4,6 @@ export type Theme = {
     springUrl: string,
     summerUrl: string,
     autumnUrl: string,
-    winterUrl: string
+    winterUrl: string,
+    seasonStatus: string,
 }

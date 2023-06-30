@@ -17,4 +17,8 @@ private final ThemeRepo themeRepo;
         return themeRepo.getThemes();
     }
 
+    public Theme updateThemeById(String id, Theme theme) {
+        return themeRepo.updateThemeById(id, theme);
+    }
+
 }

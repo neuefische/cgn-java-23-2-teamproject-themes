@@ -14,6 +14,10 @@ export default function ToggleButtons({season, setSeason}: Props) {
         _event: React.MouseEvent<HTMLElement, MouseEvent>,
         newSeason: string | null,
     ) => {
+
+
+
+
         setSeason(newSeason);
     };
 
@@ -24,16 +28,16 @@ export default function ToggleButtons({season, setSeason}: Props) {
             onChange={(event, value)=>handleSeason(event, value)}
             aria-label="current season"
         >
-            <ToggleButton value="spring" >
+            <ToggleButton value="SPRING" >
                 🌸
             </ToggleButton>
-            <ToggleButton value="summer" >
+            <ToggleButton value="SUMMER" >
                 ☀️
             </ToggleButton>
-            <ToggleButton value="autumn" >
+            <ToggleButton value="AUTUMN" >
                 🍁
             </ToggleButton>
-            <ToggleButton value="winter">
+            <ToggleButton value="WINTER">
                 ❄️
             </ToggleButton>
         </ToggleButtonGroup>
