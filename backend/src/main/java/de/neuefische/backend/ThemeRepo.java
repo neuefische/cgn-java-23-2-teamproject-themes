@@ -14,7 +14,8 @@ public class ThemeRepo {
     private final List<Theme> themes;
 
     public ThemeRepo() {
-        this.themes = List.of(new Theme(createId(), "Default Theme",
+        this.themes = new ArrayList<>();
+        this.themes.add(new Theme("12344445", "Default Theme",
             "https://cdn.discordapp.com/attachments/1090325789939085312/1123893739421708328/00038-162447185.png",
             "https://cdn.discordapp.com/attachments/1090325789939085312/1123893755842412616/00001-918857782.png",
             "https://cdn.discordapp.com/attachments/1090325789939085312/1123893768257540137/00043-3644440715.png",
@@ -32,7 +33,6 @@ public class ThemeRepo {
     }
 
     public Theme updateThemeById(String id, Theme theme) {
-        // update new theme in List "themes" and return updated theme
         for (int i = 0; i < themes.size(); i++) {
             if (themes.get(i).id().equals(id)) {
                 themes.set(i, theme);
@@ -41,6 +41,5 @@ public class ThemeRepo {
         }
         return null;
     }
-
 
 }
