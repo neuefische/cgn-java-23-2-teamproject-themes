@@ -14,4 +14,5 @@ public class Theme {
     private String summerUrl;
     private String autumnUrl;
     private String winterUrl;
+    private SeasonStatus seasonStatus;
 }
