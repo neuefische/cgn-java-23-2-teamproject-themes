@@ -9,10 +9,10 @@ type Props = {
 
 export default function DisplayTheme({theme}: Props) {
 
-    const [alignment, setAlignment] = useState<string | null>('summer');
+    const [season, setSeason] = useState<string | null>('summer');
 
-    function getCurrentSeasonImageUrl(theme: Theme, alignment: string | null): string {
-        switch (alignment) {
+    function getCurrentSeasonImageUrl(theme: Theme, season: string | null): string {
+        switch (season) {
             case "spring":
                 return theme.springUrl;
             case "summer":
@@ -28,8 +28,8 @@ export default function DisplayTheme({theme}: Props) {
 
     return (
         <>
-        <img width="200px" height="200px" src={getCurrentSeasonImageUrl(theme, alignment)} alt="Theme image"/>
-        <SeasonToggle alignment={alignment} setAlignment={setAlignment} />
+        <img width="200px" height="200px" src={getCurrentSeasonImageUrl(theme, season)} alt="Theme image"/>
+        <SeasonToggle season={season} setSeason={setSeason} />
     </>
     )
 

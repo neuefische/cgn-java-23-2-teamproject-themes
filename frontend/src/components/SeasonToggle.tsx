@@ -3,22 +3,26 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import React from "react";
 
-export default function ToggleButtons(props: any) {
+type Props = {
+    season: string | null,
+    setSeason: React.Dispatch<React.SetStateAction<string | null>>,
+}
 
-    const {alignment, setAlignment} = props;
-    const handleAlignment = (
+export default function ToggleButtons({season, setSeason}: Props) {
+
+    const handleSeason = (
         _event: React.MouseEvent<HTMLElement, MouseEvent>,
-        newAlignment: string | null,
+        newSeason: string | null,
     ) => {
-        setAlignment(newAlignment);
+        setSeason(newSeason);
     };
 
     return (
         <ToggleButtonGroup
-            value={alignment}
+            value={season}
             exclusive
-            onChange={(event, value)=>handleAlignment(event, value)}
-            aria-label="text alignment"
+            onChange={(event, value)=>handleSeason(event, value)}
+            aria-label="current season"
         >
             <ToggleButton value="spring" >
                 🌸
