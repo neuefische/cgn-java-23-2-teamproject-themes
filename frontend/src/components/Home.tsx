@@ -3,7 +3,7 @@ import axios from "axios";
 import {Theme} from "../utils/types.ts";
 import DisplayTheme from "./DisplayTheme.tsx";
 
-function DisplayThemes() {
+function Home() {
 
     const [themes, setThemes] = useState<Theme[]>([]);
 
@@ -27,4 +27,4 @@ function DisplayThemes() {
     );
 }
 
-export default DisplayThemes;
+export default Home;

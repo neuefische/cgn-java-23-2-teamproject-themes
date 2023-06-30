@@ -1,12 +1,12 @@
 import './App.css'
-import DisplayThemes from "./components/DisplayThemes.tsx";
+import Home from "./components/Home.tsx";
 
 function App() {
 
 
   return (
     <>
-      <DisplayThemes />
+      <Home />
     </>
   )
 }
