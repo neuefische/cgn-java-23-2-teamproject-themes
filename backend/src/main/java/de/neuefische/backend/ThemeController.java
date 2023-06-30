@@ -22,10 +22,14 @@ public class ThemeController {
         return this.themeService.getThemes();
     }
 
+    @PostMapping("/theme")
+    public List<Theme> addTheme(@RequestBody DTOTheme themeToBuild){
+        return this.themeService.addTheme(themeToBuild);
+    }
 
-    @PutMapping("/theme/{id}")
-    public Theme changeSeason(@PathVariable String id, @RequestBody Theme theme) {
-        return themeService.updateThemeById(id, theme);
+    @PutMapping("/theme")
+    public Theme changeSeason(@RequestBody Theme theme) {
+        return themeService.updateTheme(theme);
     }
 
 

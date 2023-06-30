@@ -17,8 +17,11 @@ private final ThemeRepo themeRepo;
         return themeRepo.getThemes();
     }
 
-    public Theme updateThemeById(String id, Theme theme) {
-        return themeRepo.updateThemeById(id, theme);
+    public Theme updateTheme(Theme theme) {
+        return themeRepo.updateTheme(theme);
     }
 
+    public List<Theme> addTheme(DTOTheme themeToBuild) {
+        return themeRepo.addTheme(themeToBuild);
+    }
 }

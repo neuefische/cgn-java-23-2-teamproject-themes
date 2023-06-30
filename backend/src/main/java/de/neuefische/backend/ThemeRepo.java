@@ -32,9 +32,9 @@ public class ThemeRepo {
         return UUID.randomUUID().toString().substring(0,8);
     }
 
-    public Theme updateThemeById(String id, Theme theme) {
+    public Theme updateTheme(Theme theme) {
         for (int i = 0; i < themes.size(); i++) {
-            if (themes.get(i).id().equals(id)) {
+            if (themes.get(i).id().equals(theme.id())) {
                 themes.set(i, theme);
                 return theme;
             }
@@ -42,4 +42,10 @@ public class ThemeRepo {
         return null;
     }
 
+    public List<Theme> addTheme(DTOTheme themeToBuild) {
+        Theme theme = new Theme(createId(), themeToBuild.name(), themeToBuild.springUrl(),themeToBuild.summerUrl(),
+                themeToBuild.autumnUrl(), themeToBuild.winterUrl(),themeToBuild.seasonStatus());
+        themes.add(theme);
+        return themes;
+    }
 }
