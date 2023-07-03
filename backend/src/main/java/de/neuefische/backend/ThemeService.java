@@ -24,4 +24,8 @@ private final ThemeRepo themeRepo;
     public List<Theme> addTheme(DTOTheme themeToBuild) {
         return themeRepo.addTheme(themeToBuild);
     }
+
+    public Theme getThemeById(String id) {
+        return themeRepo.getThemeById(id);
+    }
 }

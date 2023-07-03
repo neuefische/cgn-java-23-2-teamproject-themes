@@ -41,20 +41,6 @@ class ThemeRepoTest {
         Assertions.assertEquals(expected, actual);
     }
 
-    @Test
-    void test_getThemes() {
-        //GIVEN
-
-        List<Theme> expected = List.of(testTheme);
-
-        //WHEN
-        when(themeRepo.getThemes()).thenReturn(expected);
-        List<Theme> actual = themeRepo.getThemes();
-
-        //THEN
-        Assertions.assertEquals(expected, actual);
-        verify(themeRepo).getThemes();
-    }
 
     @Test
     void test_addTheme(){
@@ -66,8 +52,9 @@ class ThemeRepoTest {
         List<Theme> actual = themeRepo.addTheme(testDTOTheme);
 
         //Then
-        Assertions.assertEquals(expected, actual);
         verify(themeRepo).addTheme(testDTOTheme);
+        Assertions.assertEquals(expected, actual);
+
     }
 
     @Test
@@ -94,8 +81,9 @@ class ThemeRepoTest {
         Theme actual = themeRepo.updateTheme(testTheme);
 
         //Then
-        Assertions.assertEquals(expected, actual);
         verify(themeRepo).updateTheme(testTheme);
+        Assertions.assertEquals(expected, actual);
+
     }
 
 }

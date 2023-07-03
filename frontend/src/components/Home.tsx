@@ -22,7 +22,7 @@ function Home() {
 
     return (
         <>
-            {themes.map(theme => <DisplayTheme key={theme.id} theme={theme}/>)}
+            {themes.map(theme => <DisplayTheme key={theme.id} theme={theme} />)}
         </>
     );
 }

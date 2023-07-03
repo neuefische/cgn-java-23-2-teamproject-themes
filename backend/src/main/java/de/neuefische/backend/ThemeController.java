@@ -32,5 +32,9 @@ public class ThemeController {
         return themeService.updateTheme(theme);
     }
 
+    @GetMapping("/theme/{id}")
+    public Theme getThemeById(@PathVariable String id){
 
+        return themeService.getThemeById(id);
+    }
 }
