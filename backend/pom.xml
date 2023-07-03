@@ -39,6 +39,7 @@
     </dependencies>
 
     <build>
+        <finalName>themes</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
