@@ -2,6 +2,9 @@ package de.neuefische.backend;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.annotation.DirtiesContext;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -84,6 +87,19 @@ class ThemeRepoTest {
         verify(themeRepo).updateTheme(testTheme);
         Assertions.assertEquals(expected, actual);
 
+    }
+
+    @Test
+    @DirtiesContext
+    void test_deleteThemeById(){
+        //GIVEN
+        List<Theme> expected = new ArrayList<>();
+
+        //WHEN
+        List<Theme> actual = themeRepoReal.deleteThemeById("12344445");
+
+        //THEN
+        Assertions.assertEquals(expected, actual);
     }
 
 }

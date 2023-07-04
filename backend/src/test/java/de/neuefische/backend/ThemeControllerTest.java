@@ -1,6 +1,7 @@
 package de.neuefische.backend;
 
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -119,6 +120,14 @@ class ThemeControllerTest {
 
     }
 
-
+    @Test
+    @DirtiesContext
+    void expectThemeWithPathIdIsDeleted_whenDeletingTheme() throws Exception {
+        // When
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/theme/12344445"))
+                // Then
+                .andExpect(MockMvcResultMatchers.status().isOk());
+        Assertions.assertEquals(0, themeRepo.getThemes().size());
+    }
 
 }

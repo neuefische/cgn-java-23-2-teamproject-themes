@@ -2,6 +2,7 @@ package de.neuefische.backend;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,18 @@ class ThemeServiceTest {
         //WHEN
         when(themeService.getThemes()).thenReturn(expected);
         List<Theme> actual = themeService.getThemes();
+
+        //THEN
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    void test_deleteThemeById(){
+        //GIVEN
+        List<Theme> expected = new ArrayList<>();
+
+        //WHEN
+        List<Theme> actual = themeService.deleteThemeById("12345678");
 
         //THEN
         Assertions.assertEquals(expected, actual);

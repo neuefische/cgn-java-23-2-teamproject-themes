@@ -2,12 +2,12 @@ import {Theme} from "../utils/types.ts"
 import SeasonToggle from "./SeasonToggle.tsx"
 import {useState} from "react";
 import axios from "axios";
+import styled from "styled-components";
 
 type Props = {
     theme: Theme
     setThemes: React.Dispatch<React.SetStateAction<Theme[]>>
 }
-
 
 export default function DisplayTheme({theme, setThemes}: Props) {
 
@@ -38,11 +38,25 @@ export default function DisplayTheme({theme, setThemes}: Props) {
     }
 
     return (
-        <>
+        <ThemeContainer>
         <img width="200px" height="200px" src={getCurrentSeasonImageUrl(theme, season)} alt="Theme image"/>
         <SeasonToggle season={season} setSeason={setSeason} theme={theme} />
-            <button onClick={handleDelete}>DELETE THEME</button>
-    </>
+            <DeleteButton onClick={handleDelete}>DELETE THEME</DeleteButton>
+        </ThemeContainer>
     )
 
 }
+
+const ThemeContainer = styled.div`
+display: flex;
+flex-direction: column;
+gap: 5px;
+align-items: center;
+`;
+
+const DeleteButton = styled.button`
+background: crimson;
+  &:hover {
+    background: red;
+  }
+`;
