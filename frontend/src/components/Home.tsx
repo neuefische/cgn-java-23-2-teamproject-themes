@@ -24,7 +24,7 @@ function Home() {
     return (
         <>
             {themes.map(theme => <DisplayTheme key={theme.id} theme={theme} />)}
-            <AddTheme />
+            <AddTheme setThemes={setThemes}/>
         </>
     );
 }
