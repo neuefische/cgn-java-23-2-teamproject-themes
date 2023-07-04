@@ -8,7 +8,9 @@ function Home() {
     const themes = useFetch((state) => state.themes);
     const fetchThemes = useFetch((state) => state.fetchThemes);
 
-    useEffect(fetchThemes, []);
+    useEffect(()=>{
+        fetchThemes();
+    }, []);
 
     return (
         <>

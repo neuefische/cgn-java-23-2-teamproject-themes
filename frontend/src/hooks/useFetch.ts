@@ -14,8 +14,8 @@ export const useFetch = create<State>((set, get)=> ({
     // STORE START
     themes: [],
 
-    fetchThemes: () => {
-        axios.get("/api/theme")
+    fetchThemes: async () => {
+        await axios.get("/api/theme")
             .then((res) => res.data)
             .catch((err) => {
                 console.error(err);
