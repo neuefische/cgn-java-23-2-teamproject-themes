@@ -16,12 +16,16 @@ export default function AddTheme({setThemes}: Props) {
 
     function postTheme(theme: { [p: string]: FormDataEntryValue }) {
 
-        const name = theme.name.toString();
+        let name = theme.name.toString();
         const springUrl = theme.springUrl.toString();
         const summerUrl = theme.summerUrl.toString();
         const autumnUrl = theme.autumnUrl.toString();
         const winterUrl = theme.winterUrl.toString();
         const seasonStatus = theme.seasonStatus.toString();
+
+        if (name === "") {
+            name = "Default Name";
+        }
 
         const requestBody: DTOTheme = {
             name,
