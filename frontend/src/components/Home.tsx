@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {Theme} from "../utils/types.ts";
 import DisplayTheme from "./DisplayTheme.tsx";
+import AddTheme from "./AddTheme.tsx";
 
 function Home() {
 
@@ -23,6 +24,7 @@ function Home() {
     return (
         <>
             {themes.map(theme => <DisplayTheme key={theme.id} theme={theme} setThemes={setThemes}/>)}
+            <AddTheme onModifyThemes={setThemes}/>
         </>
     );
 }
