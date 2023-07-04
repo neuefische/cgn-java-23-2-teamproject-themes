@@ -33,7 +33,7 @@ export default function DisplayTheme({theme}: Props) {
         <ThemeContainer>
             <img width="200px" height="200px" src={getCurrentSeasonImageUrl(theme, season)} alt="Theme image"/>
             <SeasonToggle season={season} setSeason={setSeason} theme={theme}/>
-            <DeleteButton onClick={deleteTheme(theme.id)}>DELETE THEME</DeleteButton>
+            <DeleteButton onClick={()=>deleteTheme(theme.id)}>DELETE THEME</DeleteButton>
         </ThemeContainer>
     )
 

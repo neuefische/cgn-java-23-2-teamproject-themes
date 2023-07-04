@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import {create} from "zustand";
 import {DtoTheme, Theme} from "../utils/types.ts";
 import axios from "axios";
 
@@ -10,17 +10,16 @@ type State = {
     changeTheme: (requestBody: Theme) => void,
 }
 
-export const useFetch = create<State>((set, get)=> ({
+export const useFetch = create<State>((set, get) => ({
     // STORE START
     themes: [],
 
-    fetchThemes: async () => {
-        await axios.get("/api/theme")
-            .then((res) => res.data)
-            .catch((err) => {
-                console.error(err);
+    fetchThemes: () => {
+        axios.get("/api/theme")
+            .then((res) => {
+                set({themes: res.data});
             })
-            .then((data) => set({themes: data}))
+            .catch(console.error);
     },
 
     deleteTheme: (id) => {
@@ -49,4 +48,4 @@ export const useFetch = create<State>((set, get)=> ({
 
 
     // STORE END
-}) )
+}))
