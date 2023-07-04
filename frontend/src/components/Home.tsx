@@ -1,30 +1,19 @@
-import {useEffect, useState} from "react";
-import axios from "axios";
-import {Theme} from "../utils/types.ts";
+import {useEffect} from "react";
 import DisplayTheme from "./DisplayTheme.tsx";
 import AddTheme from "./AddTheme.tsx";
+import {useFetch} from "../hooks/useFetch.ts";
 
 function Home() {
 
-    const [themes, setThemes] = useState<Theme[]>([]);
-
-    function fetchThemes() {
-        axios.get("/api/theme")
-            .then((res) => res.data)
-            .catch((err) => {
-                console.error(err);
-            })
-            .then((data) => {
-                setThemes(data);
-            });
-    }
+    const themes = useFetch((state) => state.themes);
+    const fetchThemes = useFetch((state) => state.fetchThemes);
 
     useEffect(fetchThemes, []);
 
     return (
         <>
-            {themes.map(theme => <DisplayTheme key={theme.id} theme={theme} setThemes={setThemes}/>)}
-            <AddTheme onModifyThemes={setThemes}/>
+            {themes.map(theme => <DisplayTheme key={theme.id} theme={theme} />)}
+            <AddTheme/>
         </>
     );
 }

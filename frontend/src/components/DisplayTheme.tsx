@@ -1,17 +1,17 @@
 import {Theme} from "../utils/types.ts"
 import SeasonToggle from "./SeasonToggle.tsx"
 import {useState} from "react";
-import axios from "axios";
 import styled from "styled-components";
+import {useFetch} from "../hooks/useFetch.ts";
 
 type Props = {
     theme: Theme
-    setThemes: (ThemeList:Theme[]) => void
 }
 
-export default function DisplayTheme({theme, setThemes}: Props) {
+export default function DisplayTheme({theme}: Props) {
 
     const [season, setSeason] = useState<string>(theme.seasonStatus);
+    const deleteTheme = useFetch((state) => state.deleteTheme);
 
     function getCurrentSeasonImageUrl(theme: Theme, season: string): string {
         switch (season) {
@@ -29,20 +29,11 @@ export default function DisplayTheme({theme, setThemes}: Props) {
     }
 
 
-    function handleDelete(): void {
-        axios.delete(`/api/theme/${theme.id}`)
-            .then(response => response.data)
-            .catch(console.error)
-            .then((data) => {
-                setThemes(data);
-            });
-    }
-
     return (
         <ThemeContainer>
             <img width="200px" height="200px" src={getCurrentSeasonImageUrl(theme, season)} alt="Theme image"/>
             <SeasonToggle season={season} setSeason={setSeason} theme={theme}/>
-            <DeleteButton onClick={handleDelete}>DELETE THEME</DeleteButton>
+            <DeleteButton onClick={deleteTheme(theme.id)}>DELETE THEME</DeleteButton>
         </ThemeContainer>
     )
 
@@ -56,9 +47,9 @@ const ThemeContainer = styled.div`
 `;
 
 const DeleteButton = styled.button`
-  background: crimson;
+  background: #dc143c;
 
   &:hover {
-    background: red;
+    background: #ff0000;
   }
 `;

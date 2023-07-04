@@ -1,10 +1,7 @@
 import React from "react";
-import axios from "axios";
-import {DtoTheme, Theme} from "../utils/types.ts";
+import {DtoTheme} from "../utils/types.ts";
+import {useFetch} from "../hooks/useFetch.ts";
 
-type Props = {
-    onModifyThemes: (ThemeList: Theme[]) => void;
-}
 
 const springDefaultUrl = "https://cdn.discordapp.com/attachments/1090325789939085312/1123893739421708328/00038-162447185.png"
 const summerDefaultUrl = "https://cdn.discordapp.com/attachments/1090325789939085312/1123893755842412616/00001-918857782.png"
@@ -12,7 +9,9 @@ const autumnDefaultUrl = "https://cdn.discordapp.com/attachments/109032578993908
 const winterDefaultUrl = "https://cdn.discordapp.com/attachments/1090325789939085312/1123893783323488316/00006-1847996727.png"
 
 
-export default function AddTheme({onModifyThemes}: Props) {
+export default function AddTheme() {
+
+    const addTheme = useFetch(state => state.addTheme)
 
     function postTheme(theme: { [p: string]: FormDataEntryValue }) {
 
@@ -35,12 +34,9 @@ export default function AddTheme({onModifyThemes}: Props) {
             winterUrl,
             seasonStatus
         };
-        axios.post("/api/theme", requestBody)
-            .then((response) => response.data)
-            .catch(console.error)
-            .then((data) => {
-                onModifyThemes(data);
-            });
+
+        addTheme(requestBody);
+
     }
 
     function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
