@@ -1,11 +1,12 @@
 import './App.css'
-import DisplayImage from "./components/DisplayImage.tsx";
+import Home from "./components/Home.tsx";
 
 function App() {
 
+
   return (
     <>
-      <DisplayImage />
+      <Home />
     </>
   )
 }

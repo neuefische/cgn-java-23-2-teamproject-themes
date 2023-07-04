@@ -10,10 +10,22 @@ import java.util.List;
 @Data
 public class ThemeService {
 
+
 private final ThemeRepo themeRepo;
 
     public List<Theme> getThemes() {
         return themeRepo.getThemes();
     }
 
+    public Theme updateTheme(Theme theme) {
+        return themeRepo.updateTheme(theme);
+    }
+
+    public List<Theme> addTheme(DTOTheme themeToBuild) {
+        return themeRepo.addTheme(themeToBuild);
+    }
+
+    public Theme getThemeById(String id) {
+        return themeRepo.getThemeById(id);
+    }
 }
