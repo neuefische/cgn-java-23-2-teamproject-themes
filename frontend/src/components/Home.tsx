@@ -10,7 +10,11 @@ function Home() {
 
     useEffect(()=>{
         fetchThemes();
-    }, []);
+    }, [fetchThemes]);
+
+    if (themes.length === 0) {
+        return null;
+    }
 
     return (
         <>
