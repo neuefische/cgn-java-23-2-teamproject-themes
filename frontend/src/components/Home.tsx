@@ -2,10 +2,15 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {Theme} from "../utils/types.ts";
 import DisplayTheme from "./DisplayTheme.tsx";
+import AddTheme from "./AddTheme.tsx";
 
 function Home() {
 
     const [themes, setThemes] = useState<Theme[]>([]);
+
+    function onModifyThemes(themes: Theme[]) {
+        setThemes(themes);
+    }
 
     function fetchThemes() {
         axios.get("/api/theme")
@@ -23,6 +28,7 @@ function Home() {
     return (
         <>
             {themes.map(theme => <DisplayTheme key={theme.id} theme={theme} />)}
+            <AddTheme onModifyThemes={onModifyThemes}/>
         </>
     );
 }

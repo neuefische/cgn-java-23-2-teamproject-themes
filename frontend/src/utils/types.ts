@@ -7,3 +7,12 @@ export type Theme = {
     winterUrl: string,
     seasonStatus: string,
 }
+
+export type DtoTheme = {
+    name: string,
+    springUrl: string,
+    summerUrl: string,
+    autumnUrl: string,
+    winterUrl: string,
+    seasonStatus: string,
+}
