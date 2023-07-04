@@ -8,6 +8,10 @@ function Home() {
 
     const [themes, setThemes] = useState<Theme[]>([]);
 
+    function onModifyThemes(themes: Theme[]) {
+        setThemes(themes);
+    }
+
     function fetchThemes() {
         axios.get("/api/theme")
             .then((res) => res.data)
@@ -24,7 +28,7 @@ function Home() {
     return (
         <>
             {themes.map(theme => <DisplayTheme key={theme.id} theme={theme} />)}
-            <AddTheme setThemes={setThemes}/>
+            <AddTheme onModifyThemes={onModifyThemes}/>
         </>
     );
 }

@@ -8,7 +8,7 @@ export type Theme = {
     seasonStatus: string,
 }
 
-export type DTOTheme = {
+export type DtoTheme = {
     name: string,
     springUrl: string,
     summerUrl: string,
