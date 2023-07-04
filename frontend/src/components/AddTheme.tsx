@@ -3,6 +3,11 @@ import axios from "axios";
 import { DTOTheme } from "../utils/types.ts";
 
 export default function AddTheme() {
+    const [themeName, setThemeName] = React.useState("");
+
+    function handleOnChange(event: React.ChangeEvent<HTMLInputElement>) {
+        setThemeName(event.target.value);
+    }
 
     function postTheme(themeName: FormDataEntryValue) {
         const name: string = themeName.toString();
@@ -14,14 +19,12 @@ export default function AddTheme() {
             winterUrl: "https://cdn.discordapp.com/attachments/1090325789939085312/1123893783323488316/00006-1847996727.png",
             seasonStatus: "SPRING"
         };
-
-
-        axios.post("/api/theme", data)
+        axios.post("/api/theme", data).catch(console.error)
     }
 
     function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        const formData = new FormData(event.currentTarget);
+        const formData: FormData = new FormData(event.currentTarget);
         const data = Object.fromEntries(formData);
         console.log(data.themeName);
         postTheme(data.themeName);
@@ -31,7 +34,7 @@ export default function AddTheme() {
         <form onSubmit={handleSubmit}>
             <fieldset>
                 <legend>Add Theme</legend>
-                <input name="themeName" />
+                <input name="themeName" value={themeName} onChange={handleOnChange} />
                 <button type="submit">Add</button>
             </fieldset>
         </form>
