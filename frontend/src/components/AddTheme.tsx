@@ -6,28 +6,35 @@ type Props = {
     setThemes: (arg0: Theme[]) => void;
 }
 
+const springDefaultUrl = "https://cdn.discordapp.com/attachments/1090325789939085312/1123893739421708328/00038-162447185.png"
+const summerDefaultUrl = "https://cdn.discordapp.com/attachments/1090325789939085312/1123893755842412616/00001-918857782.png"
+const autumnDefaultUrl = "https://cdn.discordapp.com/attachments/1090325789939085312/1123893768257540137/00043-3644440715.png"
+const winterDefaultUrl = "https://cdn.discordapp.com/attachments/1090325789939085312/1123893783323488316/00006-1847996727.png"
+
+
 export default function AddTheme({setThemes}: Props) {
-    const [themeName, setThemeName] = React.useState("");
 
-    function handleOnChange(event: React.ChangeEvent<HTMLInputElement>) {
-        setThemeName(event.target.value);
-    }
+    function postTheme(theme: { [p: string]: FormDataEntryValue }) {
 
-    function postTheme(themeName: FormDataEntryValue) {
-        const name: string = themeName.toString();
-        const theme: DTOTheme = {
-            name: name,
-            springUrl: "https://cdn.discordapp.com/attachments/1090325789939085312/1123893739421708328/00038-162447185.png",
-            summerUrl: "https://cdn.discordapp.com/attachments/1090325789939085312/1123893755842412616/00001-918857782.png",
-            autumnUrl: "https://cdn.discordapp.com/attachments/1090325789939085312/1123893768257540137/00043-3644440715.png",
-            winterUrl: "https://cdn.discordapp.com/attachments/1090325789939085312/1123893783323488316/00006-1847996727.png",
-            seasonStatus: "SPRING"
+        const name = theme.name.toString();
+        const springUrl = theme.springUrl.toString();
+        const summerUrl = theme.summerUrl.toString();
+        const autumnUrl = theme.autumnUrl.toString();
+        const winterUrl = theme.winterUrl.toString();
+        const seasonStatus = theme.seasonStatus.toString();
+
+        const requestBody: DTOTheme = {
+            name,
+            springUrl,
+            summerUrl,
+            autumnUrl,
+            winterUrl,
+            seasonStatus
         };
-        axios.post("/api/theme", theme)
+        axios.post("/api/theme", requestBody)
             .then((response) => response.data)
             .catch(console.error)
             .then((data) => {
-                setThemeName("");
                 setThemes(data);
             });
     }
@@ -36,15 +43,31 @@ export default function AddTheme({setThemes}: Props) {
         event.preventDefault();
         const formData: FormData = new FormData(event.currentTarget);
         const data = Object.fromEntries(formData);
-        postTheme(data.themeName);
+        postTheme(data);
     }
 
     return (<>
         <form onSubmit={handleSubmit}>
             <fieldset>
                 <legend>Add Theme</legend>
-                <input name="themeName" value={themeName} onChange={handleOnChange}/>
-                <button type="submit">Add</button>
+                <label htmlFor="name">Name: </label>
+                <input name="name" placeholder="Georgious Theme"/>
+                <label htmlFor="springUrl">Spring Url: </label>
+                <input type="url" name="springUrl" defaultValue={springDefaultUrl}/>
+                <label htmlFor="summerUrl">Summer Url: </label>
+                <input type="url" name="summerUrl" defaultValue={summerDefaultUrl}/>
+                <label htmlFor="autumnUrl">Autumn Url: </label>
+                <input type="url" name="autumnUrl" defaultValue={autumnDefaultUrl}/>
+                <label htmlFor="winterUrl">Winter Url: </label>
+                <input type="url" name="winterUrl" defaultValue={winterDefaultUrl}/>
+                <label htmlFor="seasonStatus">Season Status: </label>
+                <select name="seasonStatus">
+                    <option value="SPRING">Spring</option>
+                    <option value="SUMMER">Summer</option>
+                    <option value="AUTUMN">Autumn</option>
+                    <option value="WINTER">Winter</option>
+                </select>
+                <button type="submit"> Add</button>
             </fieldset>
         </form>
     </>)
