@@ -36,7 +36,6 @@ export default function AddTheme({setThemes}: Props) {
         event.preventDefault();
         const formData: FormData = new FormData(event.currentTarget);
         const data = Object.fromEntries(formData);
-        console.log(data.themeName);
         postTheme(data.themeName);
     }
 
