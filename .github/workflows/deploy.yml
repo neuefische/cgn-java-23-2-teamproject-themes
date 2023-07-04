@@ -96,8 +96,7 @@ jobs:
           script: |
             docker stop themes
             docker rm themes
-            docker run --pull=always --name themes --network capstones --ip 10.0.1.3 --restart always --detach 
-            satttoshi/themes:latest
+            docker run --pull=always --name themes --network capstones --ip 10.0.1.3 --restart always --detach satttoshi/themes:latest
             sleep 15s
             docker logs example
 
