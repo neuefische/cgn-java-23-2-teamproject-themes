@@ -52,4 +52,9 @@ public class ThemeRepo {
                 .findFirst();
         return optional.orElse(null);
     }
+
+    public List<Theme> deleteThemeById(String id) {
+        this.themes.removeIf(theme -> theme.id().equals(id));
+        return this.themes;
+    }
 }

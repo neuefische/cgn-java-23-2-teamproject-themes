@@ -28,4 +28,8 @@ private final ThemeRepo themeRepo;
     public Theme getThemeById(String id) {
         return themeRepo.getThemeById(id);
     }
+
+    public List<Theme> deleteThemeById(String id) {
+        return themeRepo.deleteThemeById(id);
+    }
 }

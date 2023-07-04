@@ -37,4 +37,9 @@ public class ThemeController {
 
         return themeService.getThemeById(id);
     }
+
+    @DeleteMapping("/theme/{id}")
+    public List<Theme> deleteThemeById(@PathVariable String id){
+        return themeService.deleteThemeById(id);
+    }
 }
