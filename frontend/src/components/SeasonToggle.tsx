@@ -1,8 +1,8 @@
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import React from "react";
-import axios from "axios";
 import {Theme} from "../utils/types.ts"
+import {useFetch} from "../hooks/useFetch.ts";
 
 type Props = {
     season: string,
@@ -12,6 +12,7 @@ type Props = {
 
 export default function ToggleButtons({season, setSeason, theme}: Props) {
 
+    const changeTheme = useFetch(state => state.changeTheme);
 
     const handleSeason = (
         _event: React.MouseEvent<HTMLElement, MouseEvent>,
@@ -19,11 +20,7 @@ export default function ToggleButtons({season, setSeason, theme}: Props) {
     ) => {
         setSeason(newSeason);
         theme.seasonStatus = newSeason;
-        axios.put("/api/theme", theme)
-            .then((res) => res.data)
-            .catch((err) => {
-                console.error(err);
-            })
+        changeTheme(theme);
 
 
     };

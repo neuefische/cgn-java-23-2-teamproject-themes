@@ -5,8 +5,9 @@ import axios from "axios";
 type State = {
     themes: Theme[],
     fetchThemes: () => void,
-    deleteTheme: (id: string) => void
-    addTheme: (requestBody: DtoTheme) => void
+    deleteTheme: (id: string) => void,
+    addTheme: (requestBody: DtoTheme) => void,
+    changeTheme: (requestBody: Theme) => void,
 }
 
 export const useFetch = create<State>((set, get)=> ({
@@ -32,9 +33,15 @@ export const useFetch = create<State>((set, get)=> ({
     addTheme: (requestBody) => {
         const {fetchThemes} = get();
         axios.post("/api/theme", requestBody)
-            .then((response) => response.data)
             .catch(console.error)
             .then(fetchThemes);
+    },
+
+    changeTheme: (requestBody) => {
+        axios.put("/api/theme", requestBody)
+            .catch((err) => {
+                console.error(err);
+            })
     }
 
 
