@@ -6,7 +6,7 @@ import styled from "styled-components";
 
 type Props = {
     theme: Theme
-    setThemes: React.Dispatch<React.SetStateAction<Theme[]>>
+    setThemes: (ThemeList:Theme[]) => void
 }
 
 export default function DisplayTheme({theme, setThemes}: Props) {
@@ -29,18 +29,19 @@ export default function DisplayTheme({theme, setThemes}: Props) {
     }
 
 
-    function handleDelete() :void {
+    function handleDelete(): void {
         axios.delete(`/api/theme/${theme.id}`)
             .then(response => response.data)
             .catch(console.error)
             .then((data) => {
-                setThemes(data);});
+                setThemes(data);
+            });
     }
 
     return (
         <ThemeContainer>
-        <img width="200px" height="200px" src={getCurrentSeasonImageUrl(theme, season)} alt="Theme image"/>
-        <SeasonToggle season={season} setSeason={setSeason} theme={theme} />
+            <img width="200px" height="200px" src={getCurrentSeasonImageUrl(theme, season)} alt="Theme image"/>
+            <SeasonToggle season={season} setSeason={setSeason} theme={theme}/>
             <DeleteButton onClick={handleDelete}>DELETE THEME</DeleteButton>
         </ThemeContainer>
     )
@@ -48,14 +49,15 @@ export default function DisplayTheme({theme, setThemes}: Props) {
 }
 
 const ThemeContainer = styled.div`
-display: flex;
-flex-direction: column;
-gap: 5px;
-align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
 `;
 
 const DeleteButton = styled.button`
-background: crimson;
+  background: crimson;
+
   &:hover {
     background: red;
   }
