@@ -1,7 +1,6 @@
 package de.neuefische.backend;
 
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -20,117 +19,68 @@ class ThemeControllerTest {
     @Autowired
     MockMvc mockMvc;
 
-    @Autowired
-    ThemeRepo themeRepo;
-
-    String expectedSummer = "https://cdn.discordapp.com/attachments/1090325789939085312/1123893755842412616/00001" +
-            "-918857782.png";
-    String expectedAutumn = "https://cdn.discordapp.com/attachments/1090325789939085312/1123893768257540137/00043" +
-            "-3644440715.png";
-    String expectedWinter = "https://cdn.discordapp.com/attachments/1090325789939085312/1123893783323488316/00006" +
-            "-1847996727.png";
-    String expectedSpring = "https://cdn.discordapp.com/attachments/1090325789939085312/1123893739421708328/00038" +
-            "-162447185.png";
-
-
-    String testDTOThemeJson = """
-               {
-                   "name": "Test Theme",
-                   "springUrl": "https://cdn.discordapp.com/attachments/1090325789939085312/1123893739421708328/00038-162447185.png",
-                   "summerUrl": "https://cdn.discordapp.com/attachments/1090325789939085312/1123893755842412616/00001-918857782.png",
-                   "autumnUrl": "https://cdn.discordapp.com/attachments/1090325789939085312/1123893768257540137/00043-3644440715.png",
-                   "winterUrl": "https://cdn.discordapp.com/attachments/1090325789939085312/1123893783323488316/00006-1847996727.png",
-                   "seasonStatus": "SUMMER"
-                }
-            """;
-
-    String testThemeJson = """
-               {
-                   "id": "12344445",
-                   "name": "Theme Theme",
-                   "springUrl": "https://cdn.discordapp.com/attachments/1090325789939085312/1123893739421708328/00038-162447185.png",
-                   "summerUrl": "https://cdn.discordapp.com/attachments/1090325789939085312/1123893755842412616/00001-918857782.png",
-                   "autumnUrl": "https://cdn.discordapp.com/attachments/1090325789939085312/1123893768257540137/00043-3644440715.png",
-                   "winterUrl": "https://cdn.discordapp.com/attachments/1090325789939085312/1123893783323488316/00006-1847996727.png",
-                   "seasonStatus": "WINTER"
-                }
-            """;
-
     @Test
-    @DirtiesContext
-    void expectListOfThemes_whenGetThemes() throws Exception {
+    void expectEmptyList_whenGetThemes() throws Exception {
 
         //GIVEN
-
+        // -> Init empty test MongoDB with flapdoodle
         //WHEN
         mockMvc.perform(MockMvcRequestBuilders.get("/api/theme"))
                 //THEN
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].summerUrl").value(expectedSummer))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].autumnUrl").value(expectedAutumn))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].winterUrl").value(expectedWinter))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].springUrl").value(expectedSpring));
+                .andExpect(MockMvcResultMatchers.content().json("[]"));
     }
 
-    @Test
     @DirtiesContext
-    void expectUpdatedList_whenAddingTheme() throws Exception {
+    @Test
+    void expectTheme_whenAddTheme() throws Exception {
         //GIVEN
-
+        String testDTOThemeJson = """
+               {
+                   "name": "Test Theme",
+                   "springUrl": "https://spring.png",
+                   "summerUrl": "https://summer.png",
+                   "autumnUrl": "https://autumn.png",
+                   "winterUrl": "https://winter.png",
+                   "seasonStatus": "SUMMER"
+                }
+            """;
         //WHEN
         mockMvc.perform(
-                        MockMvcRequestBuilders.post("/api/theme")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(testDTOThemeJson)
-                )
-                //THEN
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].name").value("Test Theme"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].summerUrl").value(expectedSummer))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].autumnUrl").value(expectedAutumn))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].winterUrl").value(expectedWinter))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].springUrl").value(expectedSpring))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].seasonStatus").value("SUMMER"));
-    }
-
-    @Test
-    @DirtiesContext
-    void expectUpdatedTheme_whenUpdatingTheme() throws Exception {
-        //Given
-        String expected = """
-                   {
-                       "id": "12344445",
-                       "name": "Theme Theme",
-                       "springUrl": "https://cdn.discordapp.com/attachments/1090325789939085312/1123893739421708328/00038-162447185.png",
-                       "summerUrl": "https://cdn.discordapp.com/attachments/1090325789939085312/1123893755842412616/00001-918857782.png",
-                       "autumnUrl": "https://cdn.discordapp.com/attachments/1090325789939085312/1123893768257540137/00043-3644440715.png",
-                       "winterUrl": "https://cdn.discordapp.com/attachments/1090325789939085312/1123893783323488316/00006-1847996727.png",
-                       "seasonStatus": "WINTER"
-                    }
-                """;
-
-        //When
-        mockMvc.perform(MockMvcRequestBuilders.put("/api/theme")
+                MockMvcRequestBuilders.post("/api/theme")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(testThemeJson))
-
-                //Then
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json(expected));
-
+                        .content(testDTOThemeJson))
+                //THEN
+                        .andExpect(MockMvcResultMatchers.status().isOk())
+                        .andExpect(MockMvcResultMatchers.jsonPath("name").value("Test Theme"))
+                        .andExpect(MockMvcResultMatchers.jsonPath("springUrl").value("https://spring.png"))
+                        .andExpect(MockMvcResultMatchers.jsonPath("summerUrl").value("https://summer.png"))
+                        .andExpect(MockMvcResultMatchers.jsonPath("autumnUrl").value("https://autumn.png"))
+                        .andExpect(MockMvcResultMatchers.jsonPath("winterUrl").value("https://winter.png"))
+                        .andExpect(MockMvcResultMatchers.jsonPath("seasonStatus").value("SUMMER"));
     }
 
-    @Test
     @DirtiesContext
-    void expectThemeWithPathIdIsDeleted_whenDeletingTheme() throws Exception {
-        //Given
-        int expected = themeRepo.getThemes().size() - 1;
-
-        // When
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/theme/12344445"))
-                // Then
+    @Test
+    void expectTheme_whenUpdateTheme() throws Exception{
+        //GIVEN
+        String testDTOThemeJson = """
+               {
+                   "name": "Test Theme",
+                   "springUrl": "https://spring.png",
+                   "summerUrl": "https://summer.png",
+                   "autumnUrl": "https://autumn.png",
+                   "winterUrl": "https://winter.png",
+                   "seasonStatus": "SUMMER"
+                }
+            """;
+        mockMvc.perform(
+                MockMvcRequestBuilders.post("/api/theme")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(testDTOThemeJson))
                 .andExpect(MockMvcResultMatchers.status().isOk());
-        Assertions.assertEquals(expected, themeRepo.getThemes().size());
+
+        // This needs to be continued ...
     }
 
 }

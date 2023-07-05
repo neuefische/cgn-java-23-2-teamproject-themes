@@ -1,22 +1,18 @@
 package de.neuefische.backend;
 
-
-import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import java.util.UUID;
 
 import java.util.List;
 
 @Service
-@Data
+@RequiredArgsConstructor
 public class ThemeService {
 
+    private final ThemeRepo themeRepo;
 
-private final ThemeRepo themeRepo;
+    private final IdService idService;
 
-    public String createId(){
-        return UUID.randomUUID().toString();
-    }
 
     public List<Theme> getThemes() {
         return themeRepo.findAll();
@@ -27,16 +23,16 @@ private final ThemeRepo themeRepo;
     }
 
     public Theme addTheme(DTOTheme themeToBuild) {
+
         Theme themeToSave = new Theme(
-                createId(),
+                idService.createId(),
                 themeToBuild.name(),
                 themeToBuild.springUrl(),
                 themeToBuild.summerUrl(),
                 themeToBuild.autumnUrl(),
                 themeToBuild.winterUrl(),
                 themeToBuild.seasonStatus());
-        return themeRepo.save(themeToSave);
-
+        return this.themeRepo.save(themeToSave);
     }
 
     public Theme getThemeById(String id) {
