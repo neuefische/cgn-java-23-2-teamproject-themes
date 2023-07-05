@@ -16,10 +16,11 @@ export const useFetch = create<State>((set, get) => ({
 
     fetchThemes: () => {
         axios.get("/api/theme")
-            .then((res) => {
-                set({themes: res.data});
-            })
-            .catch(console.error);
+            .then(res => res.data)
+            .catch(console.error)
+            .then((data) => {
+                set({themes: data})
+            });
     },
 
     deleteTheme: (id) => {

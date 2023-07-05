@@ -8,17 +8,13 @@ function Home() {
     const themes = useFetch((state) => state.themes);
     const fetchThemes = useFetch((state) => state.fetchThemes);
 
-    useEffect(()=>{
+    useEffect(() => {
         fetchThemes();
     }, [fetchThemes]);
 
-    if (themes.length === 0) {
-        return null;
-    }
-
     return (
         <>
-            {themes.map(theme => <DisplayTheme key={theme.id} theme={theme} />)}
+            {themes.length === 0 ? null : themes.map(theme => <DisplayTheme key={theme.id} theme={theme}/>)}
             <AddTheme/>
         </>
     );
