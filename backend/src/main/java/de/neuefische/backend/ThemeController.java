@@ -23,7 +23,7 @@ public class ThemeController {
     }
 
     @PostMapping("/theme")
-    public List<Theme> addTheme(@RequestBody DTOTheme themeToBuild){
+    public Theme addTheme(@RequestBody DTOTheme themeToBuild){
         return this.themeService.addTheme(themeToBuild);
     }
 
@@ -39,7 +39,7 @@ public class ThemeController {
     }
 
     @DeleteMapping("/theme/{id}")
-    public List<Theme> deleteThemeById(@PathVariable String id){
-        return themeService.deleteThemeById(id);
+    public void deleteThemeById(@PathVariable String id){
+        themeService.deleteThemeById(id);
     }
 }

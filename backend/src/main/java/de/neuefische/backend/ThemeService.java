@@ -3,6 +3,7 @@ package de.neuefische.backend;
 
 import lombok.Data;
 import org.springframework.stereotype.Service;
+import java.util.UUID;
 
 import java.util.List;
 
@@ -13,23 +14,36 @@ public class ThemeService {
 
 private final ThemeRepo themeRepo;
 
+    public String createId(){
+        return UUID.randomUUID().toString();
+    }
+
     public List<Theme> getThemes() {
-        return themeRepo.getThemes();
+        return themeRepo.findAll();
     }
 
     public Theme updateTheme(Theme theme) {
-        return themeRepo.updateTheme(theme);
+        return themeRepo.save(theme);
     }
 
-    public List<Theme> addTheme(DTOTheme themeToBuild) {
-        return themeRepo.addTheme(themeToBuild);
+    public Theme addTheme(DTOTheme themeToBuild) {
+        Theme themeToSave = new Theme(
+                createId(),
+                themeToBuild.name(),
+                themeToBuild.springUrl(),
+                themeToBuild.summerUrl(),
+                themeToBuild.autumnUrl(),
+                themeToBuild.winterUrl(),
+                themeToBuild.seasonStatus());
+        return themeRepo.save(themeToSave);
+
     }
 
     public Theme getThemeById(String id) {
-        return themeRepo.getThemeById(id);
+        return themeRepo.findById(id).orElseThrow();
     }
 
-    public List<Theme> deleteThemeById(String id) {
-        return themeRepo.deleteThemeById(id);
+    public void deleteThemeById(String id) {
+        themeRepo.deleteById(id);
     }
 }
