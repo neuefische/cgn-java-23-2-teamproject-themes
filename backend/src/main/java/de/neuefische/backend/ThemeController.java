@@ -18,28 +18,27 @@ public class ThemeController {
     }
 
     @GetMapping("/theme")
-    public List<Theme> getThemes(){
+    public List<Theme> getThemes() {
         return this.themeService.getThemes();
     }
 
     @PostMapping("/theme")
-    public Theme addTheme(@RequestBody DTOTheme themeToBuild){
+    public Theme addTheme(@RequestBody DTOTheme themeToBuild) {
         return this.themeService.addTheme(themeToBuild);
     }
 
     @PutMapping("/theme")
-    public Theme changeSeason(@RequestBody Theme theme) {
+    public Theme updateTheme(@RequestBody Theme theme) {
         return themeService.updateTheme(theme);
     }
 
     @GetMapping("/theme/{id}")
-    public Theme getThemeById(@PathVariable String id){
-
+    public Theme getThemeById(@PathVariable String id) {
         return themeService.getThemeById(id);
     }
 
     @DeleteMapping("/theme/{id}")
-    public void deleteThemeById(@PathVariable String id){
+    public void deleteThemeById(@PathVariable String id) {
         themeService.deleteThemeById(id);
     }
 }
