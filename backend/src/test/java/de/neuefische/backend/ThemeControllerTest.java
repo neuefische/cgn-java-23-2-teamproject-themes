@@ -182,5 +182,4 @@ class ThemeControllerTest {
                 MockMvcRequestBuilders.get("/api/theme"))
             .andExpect(MockMvcResultMatchers.content().json("[]"));
     }
-
 }
