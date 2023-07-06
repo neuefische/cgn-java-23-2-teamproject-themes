@@ -1,6 +1,7 @@
 package de.neuefische.backend;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -10,15 +11,16 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.util.Assert;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 class ThemeControllerTest {
 
-
     @Autowired
     MockMvc mockMvc;
+
+    @Autowired
+    ObjectMapper objectMapper;
 
     @Test
     void expectEmptyList_whenGetThemes() throws Exception {
@@ -64,9 +66,10 @@ class ThemeControllerTest {
     @DirtiesContext
     @Test
     void expectTheme_whenUpdateTheme() throws Exception{
-        String initialThemeJson = """
+
+        //GIVEN
+        String initialDTOThemeJson = """
                {
-                   "id": "12345678",
                    "name": "Test Theme",
                    "springUrl": "https://spring.png",
                    "summerUrl": "https://summer.png",
@@ -75,31 +78,36 @@ class ThemeControllerTest {
                    "seasonStatus": "SUMMER"
                 }
             """;
-        mockMvc.perform(
-                MockMvcRequestBuilders.post("/api/theme")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(initialThemeJson));
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/theme"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json("[" + initialThemeJson + "]"));
 
-        String testThemeJson = """
+        String result = mockMvc.perform(
+                        MockMvcRequestBuilders.post("/api/theme")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(initialDTOThemeJson))
+                .andReturn().getResponse().getContentAsString();
+
+        Theme saveResultTheme = objectMapper.readValue(result, Theme.class);
+        String id = saveResultTheme.id();
+
+        String ThemeJsonToPut = """
                {
-                   "id": "12345678"
-                   "name": "Updated Theme",
+                   "id": "%s",
+                   "name": "Test Theme",
                    "springUrl": "https://spring.png",
                    "summerUrl": "https://summer.png",
                    "autumnUrl": "https://autumn.png",
                    "winterUrl": "https://winter.png",
                    "seasonStatus": "WINTER"
                 }
-            """;
+            """.formatted(id);
+
+        //WHEN
         mockMvc.perform(
                         MockMvcRequestBuilders.put("/api/theme")
                                 .contentType(MediaType.APPLICATION_JSON)
-                                .content(testThemeJson))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json("[" + testThemeJson + "]"));
+                                .content(ThemeJsonToPut))
 
-        // This needs to be continued ...
+                //THEN
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json(ThemeJsonToPut));
+
     }}
