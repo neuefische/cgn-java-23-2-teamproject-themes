@@ -1,12 +1,12 @@
 import {create} from "zustand";
-import {DtoTheme, Theme} from "../utils/types.ts";
+import {ThemeWithoutId, Theme} from "../utils/types.ts";
 import axios from "axios";
 
 type State = {
     themes: Theme[],
     fetchThemes: () => void,
     deleteTheme: (id: string) => void,
-    addTheme: (requestBody: DtoTheme) => void,
+    addTheme: (requestBody: ThemeWithoutId) => void,
     changeTheme: (requestBody: Theme) => void,
 }
 
@@ -30,7 +30,7 @@ export const useFetch = create<State>((set, get) => ({
             .then(fetchThemes);
     },
 
-    addTheme: (requestBody: DtoTheme) => {
+    addTheme: (requestBody: ThemeWithoutId) => {
         const {fetchThemes} = get();
         axios.post("/api/theme", requestBody)
             .catch(console.error)
@@ -38,15 +38,12 @@ export const useFetch = create<State>((set, get) => ({
     },
 
     changeTheme: (requestBody: Theme) => {
-        const { id, ...dtoTheme } = { ...requestBody };
-        axios.put(`/api/theme/${id}`, dtoTheme)
+        const { id, ...themeWithoutId } = { ...requestBody };
+        axios.put(`/api/theme/${id}`, themeWithoutId)
             .catch((err) => {
                 console.error(err);
             })
     }
-
-
-
 
 
     // STORE END

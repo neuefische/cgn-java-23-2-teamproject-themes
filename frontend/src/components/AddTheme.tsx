@@ -1,5 +1,5 @@
 import React from "react";
-import {DtoTheme} from "../utils/types.ts";
+import {ThemeWithoutId} from "../utils/types.ts";
 import {useFetch} from "../hooks/useFetch.ts";
 
 
@@ -26,7 +26,7 @@ export default function AddTheme() {
             name = "Default Name";
         }
 
-        const requestBody: DtoTheme = {
+        const requestBody: ThemeWithoutId = {
             name,
             springUrl,
             summerUrl,

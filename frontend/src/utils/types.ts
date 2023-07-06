@@ -8,7 +8,7 @@ export type Theme = {
     seasonStatus: string,
 }
 
-export type DtoTheme = {
+export type ThemeWithoutId = {
     name: string,
     springUrl: string,
     summerUrl: string,
