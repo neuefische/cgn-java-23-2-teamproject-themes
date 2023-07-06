@@ -27,9 +27,10 @@ public class ThemeController {
         return this.themeService.addTheme(themeToBuild);
     }
 
-    @PutMapping("/theme")
-    public Theme updateTheme(@RequestBody Theme theme) {
-        return themeService.updateTheme(theme);
+    @PutMapping("/theme/{id}")
+    public Theme updateTheme(@PathVariable String id,@RequestBody DTOTheme themeToBuild) {
+
+        return themeService.updateTheme(id, themeToBuild);
     }
 
     @GetMapping("/theme/{id}")

@@ -88,7 +88,18 @@ class ThemeControllerTest {
         Theme saveResultTheme = objectMapper.readValue(result, Theme.class);
         String id = saveResultTheme.id();
 
-        String ThemeJsonToPut = """
+        String DTOThemeJsonToPut = """
+               {
+                   "name": "Test Theme",
+                   "springUrl": "https://spring.png",
+                   "summerUrl": "https://summer.png",
+                   "autumnUrl": "https://autumn.png",
+                   "winterUrl": "https://winter.png",
+                   "seasonStatus": "WINTER"
+                }
+            """;
+
+        String expected = """
                {
                    "id": "%s",
                    "name": "Test Theme",
@@ -102,13 +113,13 @@ class ThemeControllerTest {
 
         //WHEN
         mockMvc.perform(
-                MockMvcRequestBuilders.put("/api/theme")
+                MockMvcRequestBuilders.put("/api/theme/%s".formatted(id))
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(ThemeJsonToPut))
+                    .content(DTOThemeJsonToPut))
 
             //THEN
             .andExpect(MockMvcResultMatchers.status().isOk())
-            .andExpect(MockMvcResultMatchers.content().json(ThemeJsonToPut));
+            .andExpect(MockMvcResultMatchers.content().json(expected));
 
     }
 

@@ -18,8 +18,9 @@ public class ThemeService {
         return themeRepo.findAll();
     }
 
-    public Theme updateTheme(Theme theme) {
-        return themeRepo.save(theme);
+    public Theme updateTheme(String id, DTOTheme themeToBuild) {
+        Theme themeToSave = new Theme(id, themeToBuild.name(),themeToBuild.springUrl(),themeToBuild.summerUrl(),themeToBuild.autumnUrl(),themeToBuild.winterUrl(),themeToBuild.seasonStatus());
+        return themeRepo.save(themeToSave);
     }
 
     public Theme addTheme(DTOTheme themeToBuild) {

@@ -65,10 +65,11 @@ class ThemeServiceTest {
         //Given
 
         Theme expected = testTheme;
+        String id = "12345678";
 
         //When
         when(themeRepo.save(testTheme)).thenReturn(expected);
-        Theme actual = themeService.updateTheme(testTheme);
+        Theme actual = themeService.updateTheme(id, DTOtestTheme);
 
         //Then
         Assertions.assertThat(expected).isEqualTo(actual);
