@@ -23,22 +23,23 @@ export const useFetch = create<State>((set, get) => ({
             });
     },
 
-    deleteTheme: (id) => {
+    deleteTheme: (id: string) => {
         const {fetchThemes} = get();
         axios.delete(`/api/theme/${id}`)
             .catch(console.error)
             .then(fetchThemes);
     },
 
-    addTheme: (requestBody) => {
+    addTheme: (requestBody: DtoTheme) => {
         const {fetchThemes} = get();
         axios.post("/api/theme", requestBody)
             .catch(console.error)
             .then(fetchThemes);
     },
 
-    changeTheme: (requestBody) => {
-        axios.put("/api/theme", requestBody)
+    changeTheme: (requestBody: Theme) => {
+        const { id, ...dtoTheme } = { ...requestBody };
+        axios.put(`/api/theme/${id}`, dtoTheme)
             .catch((err) => {
                 console.error(err);
             })
