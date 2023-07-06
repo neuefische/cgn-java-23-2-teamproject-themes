@@ -8,7 +8,6 @@
 /dataSources.local.xml
 /.idea/
 
-/frontend/node_modules
 node_modules
 
 HELP.md
@@ -36,4 +35,7 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-/backend/src/main/resources/static/
+### Frontend Build in Backend, except index.html for testing Config.class ###
+/backend/src/main/resources/static/assets
+dist
+vite.svg
