@@ -6,7 +6,7 @@ import org.springframework.data.annotation.Id;
 
 import static org.mockito.Mockito.when;
 
-public class IdServiceTest {
+class IdServiceTest {
 
     private IdService idService = Mockito.mock(IdService.class) ;
 
