@@ -22,7 +22,7 @@ class ThemeServiceTest {
             SeasonStatus.SUMMER
     );
 
-    DTOTheme DTOtestTheme = new DTOTheme("Default Theme",
+    ThemeWithoutId DTOtestTheme = new ThemeWithoutId("Default Theme",
             "https://cdn.discordapp.com/attachments/1090325789939085312/1123893739421708328/00038-162447185.png",
             "https://cdn.discordapp.com/attachments/1090325789939085312/1123893755842412616/00001-918857782.png",
             "https://cdn.discordapp.com/attachments/1090325789939085312/1123893768257540137/00043-3644440715.png",

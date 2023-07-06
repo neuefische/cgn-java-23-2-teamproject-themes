@@ -8,7 +8,7 @@ import static org.mockito.Mockito.when;
 
 class IdServiceTest {
 
-    private IdService idService = Mockito.mock(IdService.class) ;
+    private final IdService idService = Mockito.mock(IdService.class) ;
 
     @Test
     void test_getUUID(){

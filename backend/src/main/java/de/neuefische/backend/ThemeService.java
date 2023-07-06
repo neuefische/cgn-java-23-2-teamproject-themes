@@ -18,21 +18,21 @@ public class ThemeService {
         return themeRepo.findAll();
     }
 
-    public Theme updateTheme(String id, DTOTheme themeToBuild) {
-        Theme themeToSave = new Theme(id, themeToBuild.name(),themeToBuild.springUrl(),themeToBuild.summerUrl(),themeToBuild.autumnUrl(),themeToBuild.winterUrl(),themeToBuild.seasonStatus());
+    public Theme updateTheme(String id, ThemeWithoutId themeWithoutId) {
+        Theme themeToSave = new Theme(id, themeWithoutId.name(),themeWithoutId.springUrl(),themeWithoutId.summerUrl(),themeWithoutId.autumnUrl(),themeWithoutId.winterUrl(),themeWithoutId.seasonStatus());
         return themeRepo.save(themeToSave);
     }
 
-    public Theme addTheme(DTOTheme themeToBuild) {
+    public Theme addTheme(ThemeWithoutId themeWithoutId) {
 
         Theme themeToSave = new Theme(
                 idService.createId(),
-                themeToBuild.name(),
-                themeToBuild.springUrl(),
-                themeToBuild.summerUrl(),
-                themeToBuild.autumnUrl(),
-                themeToBuild.winterUrl(),
-                themeToBuild.seasonStatus());
+                themeWithoutId.name(),
+                themeWithoutId.springUrl(),
+                themeWithoutId.summerUrl(),
+                themeWithoutId.autumnUrl(),
+                themeWithoutId.winterUrl(),
+                themeWithoutId.seasonStatus());
         return this.themeRepo.save(themeToSave);
     }
 

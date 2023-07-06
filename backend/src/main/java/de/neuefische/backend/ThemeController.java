@@ -23,14 +23,14 @@ public class ThemeController {
     }
 
     @PostMapping("/theme")
-    public Theme addTheme(@RequestBody DTOTheme themeToBuild) {
-        return this.themeService.addTheme(themeToBuild);
+    public Theme addTheme(@RequestBody ThemeWithoutId themeWithoutId) {
+        return this.themeService.addTheme(themeWithoutId);
     }
 
     @PutMapping("/theme/{id}")
-    public Theme updateTheme(@PathVariable String id,@RequestBody DTOTheme themeToBuild) {
+    public Theme updateTheme(@PathVariable String id, @RequestBody ThemeWithoutId themeWithoutId) {
 
-        return themeService.updateTheme(id, themeToBuild);
+        return themeService.updateTheme(id, themeWithoutId);
     }
 
     @GetMapping("/theme/{id}")
