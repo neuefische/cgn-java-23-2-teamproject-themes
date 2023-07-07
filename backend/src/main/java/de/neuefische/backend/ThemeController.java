@@ -18,28 +18,28 @@ public class ThemeController {
     }
 
     @GetMapping("/theme")
-    public List<Theme> getThemes(){
+    public List<Theme> getThemes() {
         return this.themeService.getThemes();
     }
 
     @PostMapping("/theme")
-    public List<Theme> addTheme(@RequestBody DTOTheme themeToBuild){
-        return this.themeService.addTheme(themeToBuild);
+    public Theme addTheme(@RequestBody ThemeWithoutId themeWithoutId) {
+        return this.themeService.addTheme(themeWithoutId);
     }
 
-    @PutMapping("/theme")
-    public Theme changeSeason(@RequestBody Theme theme) {
-        return themeService.updateTheme(theme);
+    @PutMapping("/theme/{id}")
+    public Theme updateTheme(@PathVariable String id, @RequestBody ThemeWithoutId themeWithoutId) {
+
+        return themeService.updateTheme(id, themeWithoutId);
     }
 
     @GetMapping("/theme/{id}")
-    public Theme getThemeById(@PathVariable String id){
-
+    public Theme getThemeById(@PathVariable String id) {
         return themeService.getThemeById(id);
     }
 
     @DeleteMapping("/theme/{id}")
-    public List<Theme> deleteThemeById(@PathVariable String id){
-        return themeService.deleteThemeById(id);
+    public void deleteThemeById(@PathVariable String id) {
+        themeService.deleteThemeById(id);
     }
 }

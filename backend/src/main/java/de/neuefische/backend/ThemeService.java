@@ -1,35 +1,46 @@
 package de.neuefische.backend;
 
-
-import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@Data
+@RequiredArgsConstructor
 public class ThemeService {
 
+    private final ThemeRepo themeRepo;
 
-private final ThemeRepo themeRepo;
+    private final IdService idService;
+
 
     public List<Theme> getThemes() {
-        return themeRepo.getThemes();
+        return themeRepo.findAll();
     }
 
-    public Theme updateTheme(Theme theme) {
-        return themeRepo.updateTheme(theme);
+    public Theme updateTheme(String id, ThemeWithoutId themeWithoutId) {
+        Theme themeToSave = new Theme(id, themeWithoutId.name(),themeWithoutId.springUrl(),themeWithoutId.summerUrl(),themeWithoutId.autumnUrl(),themeWithoutId.winterUrl(),themeWithoutId.seasonStatus());
+        return themeRepo.save(themeToSave);
     }
 
-    public List<Theme> addTheme(DTOTheme themeToBuild) {
-        return themeRepo.addTheme(themeToBuild);
+    public Theme addTheme(ThemeWithoutId themeWithoutId) {
+
+        Theme themeToSave = new Theme(
+                idService.createId(),
+                themeWithoutId.name(),
+                themeWithoutId.springUrl(),
+                themeWithoutId.summerUrl(),
+                themeWithoutId.autumnUrl(),
+                themeWithoutId.winterUrl(),
+                themeWithoutId.seasonStatus());
+        return this.themeRepo.save(themeToSave);
     }
 
     public Theme getThemeById(String id) {
-        return themeRepo.getThemeById(id);
+        return themeRepo.findById(id).orElseThrow();
     }
 
-    public List<Theme> deleteThemeById(String id) {
-        return themeRepo.deleteThemeById(id);
+    public void deleteThemeById(String id) {
+        themeRepo.deleteById(id);
     }
 }
