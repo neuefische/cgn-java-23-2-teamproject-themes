@@ -21,8 +21,6 @@ export default function ToggleButtons({season, setSeason, theme}: Props) {
         setSeason(newSeason);
         theme.seasonStatus = newSeason;
         changeTheme(theme);
-
-
     };
 
     return (
