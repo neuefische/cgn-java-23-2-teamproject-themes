@@ -2,7 +2,7 @@ import {Theme} from "../utils/types.ts"
 import SeasonToggle from "./SeasonToggle.tsx"
 import {useState} from "react";
 import styled from "styled-components";
-import {useFetch} from "../hooks/useFetch.ts";
+import PrevNextButtons from "./PrevNextButtons.tsx";
 
 type Props = {
     theme: Theme
@@ -11,7 +11,6 @@ type Props = {
 export default function DisplayTheme({theme}: Props) {
 
     const [season, setSeason] = useState<string>(theme.seasonStatus);
-    const deleteTheme = useFetch((state) => state.deleteTheme);
 
     function getCurrentSeasonImageUrl(theme: Theme, season: string): string {
         switch (season) {
@@ -31,9 +30,9 @@ export default function DisplayTheme({theme}: Props) {
 
     return (
         <ThemeContainer>
-            <img width="200px" height="200px" src={getCurrentSeasonImageUrl(theme, season)} alt="Theme image"/>
+            <Img src={getCurrentSeasonImageUrl(theme, season)} alt="Theme image"/>
             <SeasonToggle season={season} setSeason={setSeason} theme={theme}/>
-            <DeleteButton onClick={()=>deleteTheme(theme.id)}>DELETE THEME</DeleteButton>
+            <PrevNextButtons theme={theme}/>
         </ThemeContainer>
     )
 
@@ -42,14 +41,13 @@ export default function DisplayTheme({theme}: Props) {
 const ThemeContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 2.8vh;
   align-items: center;
 `;
 
-const DeleteButton = styled.button`
-  background: #dc143c;
-
-  &:hover {
-    background: #ff0000;
-  }
+const Img=styled.img`
+  width: 320px;
+  height: 320px;
+  border-radius: 5px;
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.50);
 `;

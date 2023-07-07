@@ -1,52 +1,95 @@
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import DisplayTheme from "./DisplayTheme.tsx";
 import {useFetch} from "../hooks/useFetch.ts";
+import Navigation from "./Navigation.tsx";
+import styled from "styled-components";
+import {useStore} from "../hooks/useStore.ts";
 
 function Home() {
 
     const themes = useFetch((state) => state.themes);
     const fetchThemes = useFetch((state) => state.fetchThemes);
-
-    const [currentThemeIndex, setCurrentThemeIndex] = useState<number>(0);
+    const themeIndex = useStore(state => state.themeIndex);
 
     useEffect(() => {
         fetchThemes();
     }, [fetchThemes]);
 
-    function changeThemeIndex(chevronDirection: "increment" | "decrement") {
-        switch (chevronDirection) {
-            case "increment":
-                if (currentThemeIndex === themes.length - 1) {
-                    setCurrentThemeIndex(0);
-                }
-                else{
-                    setCurrentThemeIndex(currentThemeIndex + 1);
-                }
-                return
-            case "decrement":
-                if (currentThemeIndex === 0) {
-                    setCurrentThemeIndex(themes.length - 1);
-                }
-                else{
-                    setCurrentThemeIndex(currentThemeIndex - 1);
-                }
-                return
-        }
-    }
-
-
     if (themes.length === 0) {
         return null;
     }
     return (
-        <>
-            {currentThemeIndex}
-            <DisplayTheme key={currentThemeIndex + "theme"} theme={themes[currentThemeIndex]}/>
+        <StyledBody seasonStatus={themes[themeIndex].seasonStatus}>
+            <Header>
+                <Title>THEMES</Title>
+            </Header>
 
-            <button onClick={() => changeThemeIndex("decrement")}>{"<"}</button>
-            <button onClick={() => changeThemeIndex("increment")}>{">"}</button>
-        </>
+            <Main>
+                <DisplayTheme key={themeIndex + "theme"} theme={themes[themeIndex]}/>
+            </Main>
+
+            <Footer seasonStatus={themes[themeIndex].seasonStatus}>
+                <Navigation/>
+            </Footer>
+
+        </StyledBody>
     );
 }
 
 export default Home;
+
+type StyledProps = {
+    seasonStatus: string
+}
+
+const StyledBody = styled.div<StyledProps>`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  height: 100vh;
+  background: ${({seasonStatus}) => {
+    switch (seasonStatus) {
+      case 'SPRING':
+        return "var(--springMain)";
+      case 'SUMMER':
+        return "var(--summerMain)";
+      case 'AUTUMN':
+        return "var(--autumnMain)";
+      case 'WINTER':
+        return "var(--winterMain)";
+    }
+  }};
+`;
+
+const Header = styled.header``;
+
+const Title = styled.h1`
+  font-family: var(--font2);
+  display: flex;
+  justify-content: center;
+  color: var(--color1);
+`;
+
+const Main = styled.main`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3vh;
+`;
+
+const Footer = styled.footer<StyledProps>`
+  justify-self: flex-end;
+  background: ${({seasonStatus}) => {
+    switch (seasonStatus) {
+      case 'SPRING':
+        return "var(--springAccent)";
+      case 'SUMMER':
+        return "var(--summerAccent)";
+      case 'AUTUMN':
+        return "var(--autumnAccent)";
+      case 'WINTER':
+        return "var(--winterAccent)";
+    }
+  }};
+`;
