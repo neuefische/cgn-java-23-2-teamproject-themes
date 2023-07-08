@@ -2,15 +2,12 @@ import {Theme} from "../utils/types.ts"
 import SeasonToggle from "./SeasonToggle.tsx"
 import styled from "styled-components";
 import PrevNextButtons from "./PrevNextButtons.tsx";
-import {useFetch} from "../hooks/useFetch.ts";
 
 type Props = {
-    themeIndex: number
+    currentTheme: Theme
 }
 
-export default function DisplayTheme({themeIndex}: Props) {
-
-    const currentTheme: Theme = useFetch((state) => state.themes[themeIndex]);
+export default function DisplayTheme({currentTheme}: Props) {
 
     function getCurrentSeasonImageUrl(theme: Theme): string {
         const season = theme.seasonStatus;
@@ -27,7 +24,6 @@ export default function DisplayTheme({themeIndex}: Props) {
                 return theme.summerUrl;
         }
     }
-
 
     return (
         <ThemeContainer>

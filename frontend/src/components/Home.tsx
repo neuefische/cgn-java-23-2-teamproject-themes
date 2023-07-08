@@ -11,6 +11,7 @@ function Home() {
     const themes = useFetch((state) => state.themes);
     const fetchThemes = useFetch((state) => state.fetchThemes);
     const themeIndex = useStore(state => state.themeIndex);
+    const currentTheme = themes[themeIndex];
 
     useEffect(() => {
         fetchThemes();
@@ -26,10 +27,10 @@ function Home() {
             </Header>
 
             <Main>
-                <DisplayTheme key={themeIndex + "theme"} themeIndex={themeIndex}/>
+                <DisplayTheme key={themeIndex + "theme"} currentTheme={currentTheme}/>
             </Main>
 
-            <Footer seasonStatus={themes[themeIndex].seasonStatus}>
+            <Footer seasonStatus={currentTheme.seasonStatus}>
                 <Navigation/>
             </Footer>
 
