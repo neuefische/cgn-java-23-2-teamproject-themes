@@ -23,12 +23,13 @@ const NavBar = styled.nav`
 `;
 
 const NavButton = styled.button`
+  height: 44px;
   margin-left: 7px;
   margin-right: 7px;
   font-family: var(--font1);
-  color: ghostwhite;
-  height: 44px;
-  background: #0F0F0F;
+  font-size: 20px;
+  color: var(--colorWhite);
+  background: var(--colorBlack);
   border: none;
   border-radius: 5px;
   box-shadow: var(--shadow2);

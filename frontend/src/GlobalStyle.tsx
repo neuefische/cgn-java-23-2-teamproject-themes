@@ -2,7 +2,7 @@ import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
   @font-face {
-    font-family: 'Sansation';
+    font-family: 'Sansation Regular';
     src: url('../public/fonts/Sansation_Regular.ttf') format('truetype');
     font-weight: 400;
     font-style: normal;
