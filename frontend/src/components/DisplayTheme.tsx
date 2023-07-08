@@ -1,18 +1,19 @@
 import {Theme} from "../utils/types.ts"
 import SeasonToggle from "./SeasonToggle.tsx"
-import {useState} from "react";
 import styled from "styled-components";
 import PrevNextButtons from "./PrevNextButtons.tsx";
+import {useFetch} from "../hooks/useFetch.ts";
 
 type Props = {
-    theme: Theme
+    themeIndex: number
 }
 
-export default function DisplayTheme({theme}: Props) {
+export default function DisplayTheme({themeIndex}: Props) {
 
-    const [season, setSeason] = useState<string>(theme.seasonStatus);
+    const currentTheme: Theme = useFetch((state) => state.themes[themeIndex]);
 
-    function getCurrentSeasonImageUrl(theme: Theme, season: string): string {
+    function getCurrentSeasonImageUrl(theme: Theme): string {
+        const season = theme.seasonStatus;
         switch (season) {
             case "SPRING":
                 return theme.springUrl;
@@ -30,9 +31,9 @@ export default function DisplayTheme({theme}: Props) {
 
     return (
         <ThemeContainer>
-            <Img src={getCurrentSeasonImageUrl(theme, season)} alt="Theme image"/>
-            <SeasonToggle season={season} setSeason={setSeason} theme={theme}/>
-            <PrevNextButtons theme={theme}/>
+            <Img src={getCurrentSeasonImageUrl(currentTheme)} alt="Theme image"/>
+            <SeasonToggle theme={currentTheme}/>
+            <PrevNextButtons theme={currentTheme}/>
         </ThemeContainer>
     )
 
@@ -49,5 +50,5 @@ const Img=styled.img`
   width: 320px;
   height: 320px;
   border-radius: 5px;
-  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.50);
+  box-shadow: var(--shadow1);
 `;

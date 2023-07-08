@@ -31,5 +31,5 @@ const NavButton = styled.button`
   background: #0F0F0F;
   border: none;
   border-radius: 5px;
-  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.50);
+  box-shadow: var(--shadow2);
 `;

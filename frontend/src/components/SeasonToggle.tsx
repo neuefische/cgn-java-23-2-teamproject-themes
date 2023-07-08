@@ -5,29 +5,24 @@ import {Theme} from "../utils/types.ts"
 import {useFetch} from "../hooks/useFetch.ts";
 
 type Props = {
-    season: string,
-    setSeason: React.Dispatch<React.SetStateAction<string>>,
     theme: Theme
 }
 
-export default function ToggleButtons({season, setSeason, theme}: Props) {
+export default function ToggleButtons({theme}: Props) {
 
-    const changeTheme = useFetch(state => state.changeTheme);
+    const putTheme = useFetch(state => state.putTheme);
 
     const handleSeason = (
         _event: React.MouseEvent<HTMLElement, MouseEvent>,
         newSeason: string,
     ) => {
-        setSeason(newSeason);
         theme.seasonStatus = newSeason;
-        changeTheme(theme);
-
-
+        putTheme(theme);
     };
 
     return (
         <ToggleButtonGroup
-            value={season}
+            value={theme.seasonStatus}
             exclusive
             onChange={(event, value) => handleSeason(event, value)}
             aria-label="current season"

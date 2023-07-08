@@ -26,7 +26,7 @@ function Home() {
             </Header>
 
             <Main>
-                <DisplayTheme key={themeIndex + "theme"} theme={themes[themeIndex]}/>
+                <DisplayTheme key={themeIndex + "theme"} themeIndex={themeIndex}/>
             </Main>
 
             <Footer seasonStatus={themes[themeIndex].seasonStatus}>
