@@ -32,30 +32,34 @@ export default function ToggleButtons({theme}: Props) {
             exclusive
             onChange={(event, value) => handleSeason(event, value)}
             aria-label="current season"
-            style={{background:`${getSeasonAccentColor(theme.seasonStatus)}`}}
+            style={{background:`${getSeasonAccentColor(theme.seasonStatus)}`, border: "1px solid var(--colorBlack)", boxShadow:"var(--shadow1)"}}
         >
 
-            <ToggleButton value="SPRING">
+            <ToggleButton value="SPRING" style={{width:57}}>
                 <SelectionContainer value="SPRING" seasonStatus={theme.seasonStatus}>
                 🌸
                 </SelectionContainer>
             </ToggleButton>
-            <ToggleButton value="SUMMER">
+            <ToggleButton value="SUMMER" style={{width:57}}>
+            <SelectionContainer value="SUMMER" seasonStatus={theme.seasonStatus}>
                 ☀️
+            </SelectionContainer>
             </ToggleButton>
-            <ToggleButton value="AUTUMN">
+            <ToggleButton value="AUTUMN" style={{width:57}}>
+                <SelectionContainer value="AUTUMN" seasonStatus={theme.seasonStatus}>
                 🍁
+                </SelectionContainer>
             </ToggleButton>
-            <ToggleButton value="WINTER">
+            <ToggleButton value="WINTER" style={{width:57}}>
+                <SelectionContainer value="WINTER" seasonStatus={theme.seasonStatus}>
                 ❄️
+                </SelectionContainer>
             </ToggleButton>
         </ToggleButtonGroup>
     );
 }
 
 const SelectionContainer = styled.div<{ value: string; seasonStatus: string }>`
-  transform: scale(1.85);
-  border-radius: 8px;
-  background: ${({ value, seasonStatus }) =>
-          value === seasonStatus ? "rgba(128, 128, 128, 0.8)" : null};
+  transform: scale(${({ value, seasonStatus }) =>
+          value === seasonStatus ? 1.85 : 1.2}) translateX(0.5px);
 `;

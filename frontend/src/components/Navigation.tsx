@@ -28,8 +28,8 @@ const NavButton = styled.button`
   margin-right: 7px;
   font-family: var(--font1);
   font-size: 20px;
-  color: var(--colorWhite);
-  background: var(--colorBlack);
+  color: var(--colorBlack);
+  background: var(--colorWhite);
   border: none;
   border-radius: 5px;
   box-shadow: var(--shadow2);
