@@ -67,4 +67,3 @@ const ThemeName=styled.h2`
   font-weight: 300;
   line-height: normal;
 `;
-
