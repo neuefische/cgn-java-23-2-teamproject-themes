@@ -94,9 +94,9 @@ jobs:
           #Set dockerhub project (replace "bartfastiel/java-capstone-project.de-example-app")
           #Set IP (replace "10.0.1.99" with "10.0.1.1"-"10.0.1.20")
           script: |
-            docker stop charlie
-            docker rm charlie
-            docker run --pull=always -e MONGO_DB_URI=${{ secrets.MONGO_DB_URI }} --name charlie --network capstones --ip 
+            docker stop themes
+            docker rm themes
+            docker run --pull=always -e MONGO_DB_URI=${{ secrets.MONGO_DB_URI }} --name themes --network capstones --ip 
             10.0.1.3 --restart always --detach satttoshi/themes:latest
             sleep 15s
             docker logs example
