@@ -12,8 +12,8 @@ function Navigation() {
 export default Navigation;
 
 
-
 const NavBar = styled.nav`
+  width: 344px;
   display: grid;
   grid-template-columns: 1.5fr 2fr 1.5fr;
   gap: 5px;

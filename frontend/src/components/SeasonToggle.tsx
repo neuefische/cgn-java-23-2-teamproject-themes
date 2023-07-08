@@ -61,5 +61,5 @@ export default function ToggleButtons({theme}: Props) {
 
 const SelectionContainer = styled.div<{ value: string; seasonStatus: string }>`
   transform: scale(${({ value, seasonStatus }) =>
-          value === seasonStatus ? 1.85 : 1.2}) translateX(0.5px);
+          value === seasonStatus ? 2 : 1.6}) translateX(0.5px);
 `;

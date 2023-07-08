@@ -91,6 +91,7 @@ const Main = styled.main`
 `;
 
 const Footer = styled.footer<StyledProps>`
-  justify-self: flex-end;
+  display: grid;
+  place-items: center;
   background: ${({seasonStatus}) => getSeasonAccentColor(seasonStatus)};
 `;
