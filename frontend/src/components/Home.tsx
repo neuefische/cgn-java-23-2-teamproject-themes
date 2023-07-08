@@ -4,6 +4,7 @@ import {useFetch} from "../hooks/useFetch.ts";
 import Navigation from "./Navigation.tsx";
 import styled from "styled-components";
 import {useStore} from "../hooks/useStore.ts";
+import {getSeasonMainColor, getSeasonAccentColor} from "../utils/utils.ts";
 
 function Home() {
 
@@ -48,18 +49,7 @@ const StyledBody = styled.div<StyledProps>`
   justify-content: space-between;
 
   height: 100vh;
-  background: ${({seasonStatus}) => {
-    switch (seasonStatus) {
-      case 'SPRING':
-        return "var(--springMain)";
-      case 'SUMMER':
-        return "var(--summerMain)";
-      case 'AUTUMN':
-        return "var(--autumnMain)";
-      case 'WINTER':
-        return "var(--winterMain)";
-    }
-  }};
+  background: ${({seasonStatus}) => getSeasonMainColor(seasonStatus)};
 `;
 
 const Header = styled.header``;
@@ -80,16 +70,5 @@ const Main = styled.main`
 
 const Footer = styled.footer<StyledProps>`
   justify-self: flex-end;
-  background: ${({seasonStatus}) => {
-    switch (seasonStatus) {
-      case 'SPRING':
-        return "var(--springAccent)";
-      case 'SUMMER':
-        return "var(--summerAccent)";
-      case 'AUTUMN':
-        return "var(--autumnAccent)";
-      case 'WINTER':
-        return "var(--winterAccent)";
-    }
-  }};
+  background: ${({seasonStatus}) => getSeasonAccentColor(seasonStatus)};
 `;

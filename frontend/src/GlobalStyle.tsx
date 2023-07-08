@@ -28,7 +28,6 @@ const GlobalStyle = createGlobalStyle`
     --summerAccent: #ADA0FF;
     --autumnMain: #CCA69D;
     --autumnAccent: #D78E77;
-    
   }
   
   body {
