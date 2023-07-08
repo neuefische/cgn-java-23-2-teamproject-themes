@@ -99,7 +99,7 @@ jobs:
             docker run --pull=always -e MONGO_DB_URI=${{ secrets.MONGO_DB_URI }} --name charlie --network capstones --ip 
             10.0.1.3 --restart always --detach satttoshi/themes:latest
             sleep 15s
-            docker logs example
+            docker logs charlie
 
       - name: Check the deployed service URL
         uses: jtalk/url-health-check-action@v3
