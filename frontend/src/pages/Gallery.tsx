@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Header from "../components/Header.tsx";
 
 import {useFetch} from "../hooks/useFetch.ts";
+import DeleteTheme from "../components/DeleteTheme.tsx";
 
 export default function Gallery() {
 
@@ -18,6 +19,7 @@ export default function Gallery() {
                         <ThemeContainer seasonstatus={theme.seasonStatus}>
                             <ThemeName>{theme.name}</ThemeName>
                             <Img src={getCurrentSeasonImageUrl(theme)} alt="theme"/>
+                            <DeleteTheme theme={theme}/>
                         </ThemeContainer>
                     </ThemeCard>)}
                 <div style={{height: "100px"}}/>
