@@ -17,17 +17,6 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    public InMemoryUserDetailsManager userDetailsService() {
-        return new InMemoryUserDetailsManager(
-            User.builder()
-                .username("frank")
-                .password("frank1")
-                .roles("BASIC")
-                .build()
-        );
-    }
-
-    @Bean
     public SecurityFilterChain filterChain (HttpSecurity http) throws Exception {
         return http
             .csrf().disable()
@@ -42,12 +31,10 @@ public class SecurityConfig {
             )
             .formLogin(Customizer.withDefaults())
             .build();
-
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
     }
-
 }
