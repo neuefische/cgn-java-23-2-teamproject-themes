@@ -17,7 +17,6 @@ export default function AddTheme() {
     const addTheme = useFetch(state => state.addTheme)
 
     function postTheme(theme: { [p: string]: FormDataEntryValue }) {
-
         let name = theme.name.toString();
         const springUrl = theme.springUrl.toString();
         const summerUrl = theme.summerUrl.toString();
@@ -52,7 +51,7 @@ export default function AddTheme() {
     return (<StyledBody>
         <Header/>
         <StyledForm onSubmit={handleSubmit}>
-            <TextField id="outlined-basic" label="Name" variant="outlined" />
+            <TextField id="outlined-basic" name="name" label="Name" variant="outlined" />
             <StyledFieldset>
                 <legend>Seasonal Pictures</legend>
                 <UrlLabel htmlFor="springUrl">🌸 Spring Source: </UrlLabel>
