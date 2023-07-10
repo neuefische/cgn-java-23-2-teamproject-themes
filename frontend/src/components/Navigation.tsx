@@ -50,6 +50,11 @@ const NavButton = styled.button<NavButtonProps>`
   border: ${({selected}) => selected ? "1px solid var(--colorBlack)" : "none"};
   border-radius: 5px;
   box-shadow: var(--shadow2);
+  cursor: pointer;
+  
+    &:hover {
+        background: lightgray;
+    }
 `;
 
 type StyledProps = {
