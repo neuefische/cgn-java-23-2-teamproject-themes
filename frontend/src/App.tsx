@@ -1,14 +1,18 @@
-import Home from "./components/Home.tsx";
+import Home from "./Home.tsx";
 import GlobalStyle from "./GlobalStyle.tsx";
-
+import {Routes, Route} from "react-router-dom";
+import Gallery from "./Gallery.tsx";
 
 
 function App() {
 
     return (
         <>
-                <GlobalStyle/>
-                <Home/>
+            <GlobalStyle/>
+            <Routes>
+                <Route path="/" element={<Home/>}/>
+                <Route path="/themes" element={<Gallery/>}/>
+            </Routes>
         </>
     )
 }

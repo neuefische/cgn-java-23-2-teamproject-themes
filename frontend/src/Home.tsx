@@ -1,10 +1,10 @@
 import {useEffect} from "react";
-import DisplayTheme from "./DisplayTheme.tsx";
-import {useFetch} from "../hooks/useFetch.ts";
-import Navigation from "./Navigation.tsx";
+import DisplayTheme from "./components/DisplayTheme.tsx";
+import {useFetch} from "./hooks/useFetch.ts";
+import Navigation from "./components/Navigation.tsx";
 import styled from "styled-components";
-import {useStore} from "../hooks/useStore.ts";
-import {getSeasonMainColor, getSeasonAccentColor} from "../utils/utils.ts";
+import {useStore} from "./hooks/useStore.ts";
+import {getSeasonMainColor, getSeasonAccentColor} from "./utils/utils.ts";
 
 function Home() {
 
