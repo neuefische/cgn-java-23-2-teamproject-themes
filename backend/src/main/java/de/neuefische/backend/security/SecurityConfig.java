@@ -27,7 +27,7 @@ public class SecurityConfig {
                     .requestMatchers("/api/theme").authenticated()
                     .requestMatchers(HttpMethod.GET,"/api/theme/**").permitAll()
                     .requestMatchers("/api/theme/**").authenticated()
-                    .anyRequest().permitAll()
+                    .anyRequest().authenticated()
             )
             .formLogin(Customizer.withDefaults())
             .build();
