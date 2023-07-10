@@ -2,28 +2,13 @@ import {Theme} from "../utils/types.ts"
 import SeasonToggle from "./SeasonToggle.tsx"
 import styled from "styled-components";
 import PrevNextButtons from "./PrevNextButtons.tsx";
+import {getCurrentSeasonImageUrl} from "../utils/utils.ts";
 
 type Props = {
     currentTheme: Theme
 }
 
 export default function DisplayTheme({currentTheme}: Props) {
-
-    function getCurrentSeasonImageUrl(theme: Theme): string {
-        const season = theme.seasonStatus;
-        switch (season) {
-            case "SPRING":
-                return theme.springUrl;
-            case "SUMMER":
-                return theme.summerUrl;
-            case "AUTUMN":
-                return theme.autumnUrl;
-            case "WINTER":
-                return theme.winterUrl;
-            default:
-                return theme.summerUrl;
-        }
-    }
 
     return (
         <ThemeContainer>
@@ -38,7 +23,7 @@ export default function DisplayTheme({currentTheme}: Props) {
 const ThemeContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 2.8vh;
+  gap: 3.9vh;
   align-items: center;
 `;
 

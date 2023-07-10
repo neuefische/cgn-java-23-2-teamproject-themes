@@ -1,6 +1,9 @@
 import React from "react";
 import {ThemeWithoutId} from "../utils/types.ts";
 import {useFetch} from "../hooks/useFetch.ts";
+import styled from "styled-components";
+import Header from "../components/Header.tsx";
+import {TextField} from "@mui/material";
 
 
 const springDefaultUrl = "https://tinyurl.com/23ekjpst"
@@ -46,29 +49,94 @@ export default function AddTheme() {
         postTheme(data);
     }
 
-    return (<>
-        <form onSubmit={handleSubmit}>
-            <fieldset>
-                <legend>Add Theme</legend>
-                <label htmlFor="name">Name: </label>
-                <input name="name" placeholder="Georgious Theme"/>
-                <label htmlFor="springUrl">Spring Url: </label>
+    return (<StyledBody>
+        <Header/>
+        <StyledForm onSubmit={handleSubmit}>
+            <TextField id="outlined-basic" label="Name" variant="outlined" />
+            <StyledFieldset>
+                <legend>Seasonal Pictures</legend>
+                <UrlLabel htmlFor="springUrl">🌸 Spring Source: </UrlLabel>
                 <input type="url" name="springUrl" defaultValue={springDefaultUrl}/>
-                <label htmlFor="summerUrl">Summer Url: </label>
+                <UrlLabel htmlFor="summerUrl">☀️ Summer Source: </UrlLabel>
                 <input type="url" name="summerUrl" defaultValue={summerDefaultUrl}/>
-                <label htmlFor="autumnUrl">Autumn Url: </label>
+                <UrlLabel htmlFor="autumnUrl">🍁 Autumn Source: </UrlLabel>
                 <input type="url" name="autumnUrl" defaultValue={autumnDefaultUrl}/>
-                <label htmlFor="winterUrl">Winter Url: </label>
+                <UrlLabel htmlFor="winterUrl">❄️ Winter Source: </UrlLabel>
                 <input type="url" name="winterUrl" defaultValue={winterDefaultUrl}/>
-                <label htmlFor="seasonStatus">Season Status: </label>
+            </StyledFieldset>
+            <Container>
+            <SeasonStatusContainer>
+                <StatusLabel htmlFor="seasonStatus" >ACTIVE <br/> SEASON:</StatusLabel>
                 <select name="seasonStatus">
                     <option value="SPRING">Spring</option>
                     <option value="SUMMER">Summer</option>
                     <option value="AUTUMN">Autumn</option>
                     <option value="WINTER">Winter</option>
                 </select>
-                <button type="submit"> Add</button>
-            </fieldset>
-        </form>
-    </>)
+            </SeasonStatusContainer>
+                <SubmitButton type="submit">ADD</SubmitButton>
+            </Container>
+
+        </StyledForm>
+    </StyledBody>)
 }
+
+const StyledBody = styled.div`
+  max-height: 593px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 20px;
+  padding-bottom: 74px;
+
+  height: 100vh;
+`;
+
+const StyledFieldset = styled.fieldset`
+  padding: 2px 30px 23px 30px;
+
+  display:flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 1em;
+`;
+
+const StyledForm = styled.form`
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.1em;
+`;
+
+const SeasonStatusContainer = styled.div`
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Container = styled.div`
+display: grid;
+  grid-template-columns: 3fr 3fr;
+  gap: 20px;
+`;
+
+const UrlLabel = styled.label`
+font-family: var(--font1);
+  transform: translateY(10px);
+`;
+
+const StatusLabel = styled.label`
+font-family: var(--font1);
+`;
+
+const SubmitButton = styled.button`
+width: 100px;
+  font-family: var(--font2);
+  font-size: larger;
+  font-weight: bolder;
+  
+  background-color: aquamarine;
+`;

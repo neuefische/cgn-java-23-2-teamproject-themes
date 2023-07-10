@@ -8,6 +8,10 @@ type State = {
     deleteTheme: (id: string) => void;
     addTheme: (requestBody: ThemeWithoutId) => void;
     putTheme: (requestBody: Theme) => void;
+
+    themeIndex: number,
+    decrementThemeIndex: (themeLength: number) => void,
+    incrementThemeIndex: (themeLength: number) => void,
 };
 
 export const useFetch = create<State>((set, get) => ({
@@ -48,6 +52,18 @@ export const useFetch = create<State>((set, get) => ({
             .then(fetchThemes)
             .catch(console.error);
     },
+
+    themeIndex: 0,
+
+    decrementThemeIndex: (themeLength) =>
+        set((state) => ({
+            themeIndex: (state.themeIndex === 0) ? (themeLength - 1) : (state.themeIndex - 1)
+        })),
+
+    incrementThemeIndex: (themeLength) =>
+        set((state) => ({
+            themeIndex: (state.themeIndex === (themeLength - 1)) ? 0 : (state.themeIndex + 1)
+        }))
 
     // STORE END
 }));

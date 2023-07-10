@@ -36,22 +36,22 @@ export default function ToggleButtons({theme}: Props) {
         >
 
             <ToggleButton value="SPRING" style={{width:57}}>
-                <SelectionContainer value="SPRING" seasonStatus={theme.seasonStatus}>
+                <SelectionContainer value="SPRING" seasonstatus={theme.seasonStatus}>
                 🌸
                 </SelectionContainer>
             </ToggleButton>
             <ToggleButton value="SUMMER" style={{width:57}}>
-            <SelectionContainer value="SUMMER" seasonStatus={theme.seasonStatus}>
+            <SelectionContainer value="SUMMER" seasonstatus={theme.seasonStatus}>
                 ☀️
             </SelectionContainer>
             </ToggleButton>
             <ToggleButton value="AUTUMN" style={{width:57}}>
-                <SelectionContainer value="AUTUMN" seasonStatus={theme.seasonStatus}>
+                <SelectionContainer value="AUTUMN" seasonstatus={theme.seasonStatus}>
                 🍁
                 </SelectionContainer>
             </ToggleButton>
             <ToggleButton value="WINTER" style={{width:57}}>
-                <SelectionContainer value="WINTER" seasonStatus={theme.seasonStatus}>
+                <SelectionContainer value="WINTER" seasonstatus={theme.seasonStatus}>
                 ❄️
                 </SelectionContainer>
             </ToggleButton>
@@ -59,7 +59,12 @@ export default function ToggleButtons({theme}: Props) {
     );
 }
 
-const SelectionContainer = styled.div<{ value: string; seasonStatus: string }>`
-  transform: scale(${({ value, seasonStatus }) =>
-          value === seasonStatus ? 2 : 1.6}) translateX(0.5px);
+type StyledProps ={
+    value: string;
+    seasonstatus: string;
+}
+
+const SelectionContainer = styled.div<StyledProps>`
+  transform: scale(${({ value, seasonstatus }) =>
+          value === seasonstatus ? 2 : 1.6}) translateX(0.5px);
 `;

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import {useStore} from "../hooks/useStore.ts";
 import {useFetch} from "../hooks/useFetch.ts";
 import {Theme} from "../utils/types.ts"
 import {getSeasonAccentColor} from "../utils/utils.ts";
@@ -11,11 +10,11 @@ type Props = {
 function PrevNextButtons({theme}: Props) {
 
     const themes = useFetch(state => state.themes);
-    const incrementThemeIndex = useStore(state => state.decrementThemeIndex);
-    const decrementThemeIndex = useStore(state => state.incrementThemeIndex);
+    const incrementThemeIndex = useFetch(state => state.decrementThemeIndex);
+    const decrementThemeIndex = useFetch(state => state.incrementThemeIndex);
 
     return (
-        <PaginationButtons seasonStatus={theme.seasonStatus}>
+        <PaginationButtons seasonstatus={theme.seasonStatus}>
             <button onClick={() => incrementThemeIndex(themes.length)}>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--colorBlack)" width="25px" height="25px">
                     <path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"/>
@@ -35,7 +34,7 @@ function PrevNextButtons({theme}: Props) {
 export default PrevNextButtons;
 
 type StyledProps ={
-    seasonStatus: string
+    seasonstatus: string
 }
 
 const PaginationButtons = styled.div<StyledProps>`
@@ -50,7 +49,7 @@ const PaginationButtons = styled.div<StyledProps>`
     height: 50px;
     border: solid 1px var(--colorBlack);
     border-radius: 5px;
-    background: ${({seasonStatus}) => getSeasonAccentColor(seasonStatus)};
+    background: ${({seasonstatus}) => getSeasonAccentColor(seasonstatus)};
     box-shadow: var(--shadow1);
     svg{
       transform: scale(1.8);

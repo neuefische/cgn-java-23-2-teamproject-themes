@@ -1,5 +1,16 @@
 import styled from "styled-components";
+import {getSeasonAccentColor} from "../utils/utils.ts";
+import {useFetch} from "../hooks/useFetch.ts";
+import {Link, useLocation} from "react-router-dom";
+
 function Navigation() {
+
+    const location = useLocation();
+
+    const themes = useFetch((state) => state.themes);
+    const themeIndex = useFetch(state => state.themeIndex);
+    const currentTheme = themes[themeIndex];
+
     return (
         <Footer $seasonstatus={currentTheme.seasonStatus}>
             <NavBar>
@@ -15,10 +26,9 @@ export default Navigation;
 
 
 const NavBar = styled.nav`
-  width: 344px;
-  display: grid;
-  grid-template-columns: 1.5fr 2fr 1.5fr;
-  gap: 5px;
+  width: 345px;
+  display: flex;
+  justify-content: center;
   padding: 15px;
 
 `;
@@ -40,4 +50,17 @@ const NavButton = styled.button<NavButtonProps>`
   border: ${({selected}) => selected ? "1px solid var(--colorBlack)" : "none"};
   border-radius: 5px;
   box-shadow: var(--shadow2);
+`;
+
+type StyledProps = {
+    $seasonstatus: string
+}
+
+const Footer = styled.footer<StyledProps>`
+  position: fixed;
+  bottom: 0;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  background: ${({$seasonstatus}) => getSeasonAccentColor($seasonstatus)};
 `;
