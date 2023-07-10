@@ -11,7 +11,7 @@ function Home() {
     const currentTheme = themes[themeIndex];
 
     return (
-        <StyledBody seasonstatus={currentTheme.seasonStatus}>
+        <StyledBody $seasonstatus={currentTheme.seasonStatus}>
             <Header/>
             <Main>
                 <DisplayTheme key={currentTheme.id} currentTheme={currentTheme}/>
@@ -23,19 +23,16 @@ function Home() {
 export default Home;
 
 type StyledProps = {
-    seasonstatus: string
+    $seasonstatus: string
 }
 
 const StyledBody = styled.div<StyledProps>`
-  max-height: 593px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   gap: 20px;
-  padding-bottom: 74px;
-
   height: 100vh;
-  background: ${({seasonstatus}) => getSeasonMainColor(seasonstatus)};
+  background: ${({$seasonstatus}) => getSeasonMainColor($seasonstatus)};
 `;
 
 const Main = styled.main`
