@@ -54,13 +54,13 @@ export default function EditTheme() {
             <StyledFieldset>
                 <legend>Seasonal Pictures</legend>
                 <UrlLabel htmlFor="springUrl">🌸 Spring Source: </UrlLabel>
-                <input type="url" name="springUrl" defaultValue={currentTheme?.springUrl}/>
+                <input type="url" name="springUrl" defaultValue={currentTheme.springUrl}/>
                 <UrlLabel htmlFor="summerUrl">☀️ Summer Source: </UrlLabel>
-                <input type="url" name="summerUrl" defaultValue={currentTheme?.summerUrl}/>
+                <input type="url" name="summerUrl" defaultValue={currentTheme.summerUrl}/>
                 <UrlLabel htmlFor="autumnUrl">🍁 Autumn Source: </UrlLabel>
-                <input type="url" name="autumnUrl" defaultValue={currentTheme?.autumnUrl}/>
+                <input type="url" name="autumnUrl" defaultValue={currentTheme.autumnUrl}/>
                 <UrlLabel htmlFor="winterUrl">❄️ Winter Source: </UrlLabel>
-                <input type="url" name="winterUrl" defaultValue={currentTheme?.winterUrl}/>
+                <input type="url" name="winterUrl" defaultValue={currentTheme.winterUrl}/>
             </StyledFieldset>
             <Container>
                 <SeasonStatusContainer>
