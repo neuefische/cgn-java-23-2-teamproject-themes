@@ -14,7 +14,7 @@ export default function PrevNextButtons({theme}: Props) {
     const decrementThemeIndex = useFetch(state => state.incrementThemeIndex);
 
     return (
-        <PaginationButtons seasonstatus={theme.seasonStatus}>
+        <PaginationButtons $seasonstatus={theme.seasonStatus}>
             <button onClick={() => incrementThemeIndex(themes.length)}>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--colorBlack)" width="25px"
                      height="25px">
@@ -29,13 +29,11 @@ export default function PrevNextButtons({theme}: Props) {
                 </svg>
             </button>
         </PaginationButtons>
-    )
-        ;
+    );
 }
 
-
 type StyledProps = {
-    seasonstatus: string
+    $seasonstatus: string
 }
 
 const PaginationButtons = styled.div<StyledProps>`
@@ -51,7 +49,7 @@ const PaginationButtons = styled.div<StyledProps>`
     height: 50px;
     border: solid 1px var(--colorBlack);
     border-radius: 5px;
-    background: ${({seasonstatus}) => getSeasonAccentColor(seasonstatus)};
+    background: ${({$seasonstatus}) => getSeasonAccentColor($seasonstatus)};
     box-shadow: var(--shadow1);
 
     svg {
@@ -69,7 +67,7 @@ const ThemeName = styled.h2`
   font-weight: 300;
   line-height: normal;
   width: 180px;
-  
+
   display: flex;
   align-items: center;
   justify-content: center;
