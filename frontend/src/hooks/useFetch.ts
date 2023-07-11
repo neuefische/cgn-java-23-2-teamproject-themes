@@ -8,6 +8,7 @@ type State = {
     deleteTheme: (id: string) => void;
     addTheme: (requestBody: ThemeWithoutId) => void;
     putTheme: (requestBody: Theme) => void;
+    getThemeById: (id: string | undefined) => Theme;
 
     themeIndex: number,
     decrementThemeIndex: (themeLength: number) => void,
@@ -51,6 +52,18 @@ export const useFetch = create<State>((set, get) => ({
             .put(`/api/theme/${id}`, themeWithoutId)
             .then(fetchThemes)
             .catch(console.error);
+    },
+
+    getThemeById: (id: string | undefined) => {
+        if (!id) {
+            throw new Error("No id provided");
+        }
+        const { themes } = get();
+        const theme = themes.find((theme) => theme.id === id);
+        if (!theme) {
+            throw new Error(`No theme with id ${id} found`);
+        }
+        return theme;
     },
 
     themeIndex: 0,

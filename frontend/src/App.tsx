@@ -6,7 +6,7 @@ import AddTheme from "./pages/AddTheme.tsx";
 import Navigation from "./components/Navigation.tsx";
 import {useFetch} from "./hooks/useFetch.ts";
 import {useEffect} from "react";
-import EditTheme from "./components/EditTheme.tsx";
+import EditTheme from "./pages/EditTheme.tsx";
 
 export default function App() {
 
