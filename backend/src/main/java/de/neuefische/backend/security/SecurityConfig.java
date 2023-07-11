@@ -6,11 +6,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @EnableWebSecurity
@@ -28,6 +25,7 @@ public class SecurityConfig {
                     .requestMatchers("/api/theme").authenticated()
                     .requestMatchers(HttpMethod.GET,"/api/theme/**").permitAll()
                     .requestMatchers("/api/theme/**").authenticated()
+                    .requestMatchers("/api/user/me").authenticated()
                     .anyRequest().authenticated()
             )
             .formLogin(Customizer.withDefaults())
