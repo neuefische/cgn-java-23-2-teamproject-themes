@@ -1,7 +1,7 @@
 import {Theme} from "../utils/types.ts";
 import styled from "styled-components";
 import {getCurrentSeasonImageUrl, getSeasonMainColor} from "../utils/utils.ts";
-import EditButton from "./EditButton.tsx";
+import EditButton from "../pages/EditButton.tsx";
 import DeleteButton from "./DeleteButton.tsx";
 
 

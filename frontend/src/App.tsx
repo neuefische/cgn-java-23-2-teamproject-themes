@@ -1,11 +1,12 @@
 import Home from "./pages/Home.tsx";
 import GlobalStyle from "./GlobalStyle.tsx";
-import {Routes, Route} from "react-router-dom";
+import {Routes, Route, Navigate} from "react-router-dom";
 import Gallery from "./pages/Gallery.tsx";
 import AddTheme from "./pages/AddTheme.tsx";
 import Navigation from "./components/Navigation.tsx";
 import {useFetch} from "./hooks/useFetch.ts";
 import {useEffect} from "react";
+import EditTheme from "./components/EditTheme.tsx";
 
 export default function App() {
 
@@ -27,6 +28,8 @@ export default function App() {
                 <Route path="/" element={<Home/>}/>
                 <Route path="/themes" element={<Gallery/>}/>
                 <Route path="/add-theme" element={<AddTheme/>}/>
+                <Route path="/edit-theme/:id" element={<EditTheme/>}/>
+                <Route path="/*" element={<Navigate to="/"/>}/>
             </Routes>
             <Navigation/>
         </>
