@@ -6,7 +6,7 @@ type State = {
     themes: Theme[];
     fetchThemes: () => void;
     deleteTheme: (id: string) => void;
-    addTheme: (requestBody: ThemeWithoutId) => void;
+    postTheme: (requestBody: ThemeWithoutId) => void;
     putTheme: (requestBody: Theme) => void;
     getThemeById: (id: string | undefined) => Theme;
 
@@ -37,7 +37,7 @@ export const useFetch = create<State>((set, get) => ({
             .catch(console.error);
     },
 
-    addTheme: (requestBody: ThemeWithoutId) => {
+    postTheme: (requestBody: ThemeWithoutId) => {
         const { fetchThemes } = get();
         axios
             .post("/api/theme", requestBody)

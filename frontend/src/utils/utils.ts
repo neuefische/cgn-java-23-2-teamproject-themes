@@ -45,3 +45,4 @@ export function getCurrentSeasonImageUrl(theme: Theme): string {
             return theme.summerUrl;
     }
 }
+

@@ -14,14 +14,9 @@ export default function EditTheme() {
     const putTheme = useFetch(state => state.putTheme);
 
 
-    function putThemeHandler(theme: { [p: string]: FormDataEntryValue }) {
+    function putThemeHandler(theme: { [p: string]: FormDataEntryValue }, themeId: string) {
         let name = theme.name.toString();
-        const id = currentTheme.id;
-        const springUrl = theme.springUrl.toString();
-        const summerUrl = theme.summerUrl.toString();
-        const autumnUrl = theme.autumnUrl.toString();
-        const winterUrl = theme.winterUrl.toString();
-        const seasonStatus = theme.seasonStatus.toString();
+        const id = themeId;
 
         if (name === "") {
             name = "Default Name";
@@ -30,11 +25,11 @@ export default function EditTheme() {
         const requestBody: Theme = {
             id,
             name,
-            springUrl,
-            summerUrl,
-            autumnUrl,
-            winterUrl,
-            seasonStatus
+            springUrl: theme.springUrl.toString(),
+            summerUrl: theme.summerUrl.toString(),
+            autumnUrl: theme.autumnUrl.toString(),
+            winterUrl: theme.winterUrl.toString(),
+            seasonStatus: theme.seasonStatus.toString()
         };
 
         try {
@@ -49,7 +44,7 @@ export default function EditTheme() {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
         const data = Object.fromEntries(formData);
-        putThemeHandler(data);
+        putThemeHandler(data, currentTheme.id);
     }
 
     return (<StyledBody>
@@ -70,7 +65,7 @@ export default function EditTheme() {
             <Container>
                 <SeasonStatusContainer>
                     <StatusLabel htmlFor="seasonStatus" >ACTIVE <br/> SEASON:</StatusLabel>
-                    <select name="seasonStatus" defaultValue={currentTheme?.seasonStatus}>
+                    <select name="seasonStatus" defaultValue={currentTheme.seasonStatus}>
                         <option value="SPRING">Spring</option>
                         <option value="SUMMER">Summer</option>
                         <option value="AUTUMN">Autumn</option>
