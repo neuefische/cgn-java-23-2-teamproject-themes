@@ -24,6 +24,3 @@ export default function Gallery() {
 const StyledMain = styled.main`
   margin-top: 20px;
 `;
-
-
-

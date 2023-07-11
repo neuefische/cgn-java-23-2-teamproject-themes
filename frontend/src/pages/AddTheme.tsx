@@ -117,22 +117,22 @@ const SeasonStatusContainer = styled.div`
 `;
 
 const Container = styled.div`
-display: grid;
+  display: grid;
   grid-template-columns: 3fr 3fr;
   gap: 20px;
 `;
 
 const UrlLabel = styled.label`
-font-family: var(--font1);
+  font-family: var(--font1);
   transform: translateY(10px);
 `;
 
 const StatusLabel = styled.label`
-font-family: var(--font1);
+  font-family: var(--font1);
 `;
 
 const SubmitButton = styled.button`
-width: 100px;
+  width: 100px;
   font-family: var(--font2);
   font-size: larger;
   font-weight: bolder;
