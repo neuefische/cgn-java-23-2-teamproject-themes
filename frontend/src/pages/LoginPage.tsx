@@ -1,0 +1,48 @@
+import { FormEvent, useState } from "react";
+import axios from "axios";
+
+
+export default function LoginPage() {
+
+    const [userName, setUserName] = useState("");
+    const [password, setPassword] = useState("");
+
+    function handleUserNameInput(event: FormEvent<HTMLInputElement>) {
+        setUserName(event.currentTarget.value);
+    }
+
+    function handlePasswordInput(event: FormEvent<HTMLInputElement>) {
+        setPassword(event.currentTarget.value);
+    }
+
+    function handleLogin(event: FormEvent) {
+        event.preventDefault();
+        axios.post("/api/user/login", null, {
+            auth: {
+                username: userName,
+                password: password
+            }
+        })
+            .then(console.log)
+
+        setUserName("");
+        setPassword("");
+    }
+
+    return (
+        <>
+            <h2>Login</h2>
+            <form onSubmit={handleLogin}>
+                <label>
+                    Username:
+                    <input value={userName} onChange={handleUserNameInput} type="text" name="userName" placeholder="username"/>
+                </label>
+                <label>
+                    Password:
+                    <input value={password} onChange={handlePasswordInput} type="password" name="password" placeholder="password"/>
+                </label>
+                <button type="submit">Login</button>
+            </form>
+        </>
+    );
+}
