@@ -6,12 +6,9 @@ import axios from "axios";
 import {Route, Routes, useNavigate} from "react-router-dom";
 import ProtectedRoutes from "./components/ProtectedRoutes.tsx";
 
-
 function App() {
     const [user, setUser] = useState<string>();
-
     const navigate = useNavigate();
-
 
     function handleLogin(event: FormEvent, userName: string, password: string) {
         event.preventDefault();
@@ -24,7 +21,7 @@ function App() {
             .then(response => {
                 setUser(response.data)
                 navigate("/")
-            })
+            }).catch(console.error)
     }
 
     function me() {
@@ -49,7 +46,6 @@ function App() {
                 <Route path="/login" element={<LoginPage onLogin={handleLogin}/>}/>
 
             </Routes>
-
         </>
     )
 }
