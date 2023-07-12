@@ -1,8 +1,7 @@
 
 import LoginPage from "./pages/LoginPage.tsx";
-import {FormEvent, useEffect, useState} from "react";
-import axios from "axios";
-import {Route, Routes, useNavigate, Navigate} from "react-router-dom";
+import {useEffect} from "react";
+import {Route, Routes, Navigate} from "react-router-dom";
 import ProtectedRoutes from "./components/ProtectedRoutes.tsx";
 import Home from "./pages/Home.tsx";
 import GlobalStyle from "./GlobalStyle.tsx";
@@ -13,11 +12,11 @@ import {useFetch} from "./hooks/useFetch.ts";
 import EditTheme from "./pages/EditTheme.tsx";
 
 function App() {
-    const [user, setUser] = useState<string>();
 
-    const navigate = useNavigate();
     const themes = useFetch((state) => state.themes);
     const fetchThemes = useFetch((state) => state.fetchThemes);
+    const me = useFetch((state) => state.me);
+    const user = useFetch((state) => state.user);
 
     useEffect(() => {
         fetchThemes();
@@ -31,29 +30,10 @@ function App() {
         return null;
     }
 
-    function handleLogin(event: FormEvent, userName: string, password: string) {
-        event.preventDefault();
-        axios.post("/api/user/login", null, {
-            auth: {
-                username: userName,
-                password: password
-            }
-        })
-            .then(response => {
-                setUser(response.data)
-                navigate("/")
-            })
-    }
+    return (        <>
 
-    function me() {
-        axios.get("/api/user/me")
-            .then(response => setUser(response.data))
-    }
-
-    return (
-        <>
             <GlobalStyle/>
-            <h1 style={{ position:"absolute", right:30, top:-10}}>{user}</h1>
+            <h2 style={{ position:"absolute", right:30, top:-8}}>{user}</h2>
             <Routes>
 
                 <Route element={<ProtectedRoutes user={user}/>}>
@@ -64,7 +44,7 @@ function App() {
                     <Route path="/*" element={<Navigate to="/"/>}/>
                 </Route>
 
-                <Route path="/login" element={<LoginPage onLogin={handleLogin}/>}/>
+                <Route path="/login" element={<LoginPage/>}/>
 
             </Routes>
             <Navigation/>

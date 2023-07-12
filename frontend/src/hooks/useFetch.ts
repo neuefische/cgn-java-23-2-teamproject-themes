@@ -1,6 +1,8 @@
 import { create } from "zustand";
 import { ThemeWithoutId, Theme } from "../utils/types.ts";
 import axios from "axios";
+import {FormEvent} from "react";
+import {NavigateFunction} from "react-router-dom";
 
 type State = {
     themes: Theme[];
@@ -13,6 +15,9 @@ type State = {
     themeIndex: number,
     decrementThemeIndex: (themeLength: number) => void,
     incrementThemeIndex: (themeLength: number) => void,
+    user: string,
+    login: (event: FormEvent, userName: string, password: string, navigate: NavigateFunction) => void,
+    me: () => void
 };
 
 export const useFetch = create<State>((set, get) => ({
@@ -76,7 +81,29 @@ export const useFetch = create<State>((set, get) => ({
     incrementThemeIndex: (themeLength) =>
         set((state) => ({
             themeIndex: (state.themeIndex === (themeLength - 1)) ? 0 : (state.themeIndex + 1)
-        }))
+        })),
+
+    user: "",
+
+    login: (event: FormEvent, userName: string, password: string, navigate: NavigateFunction) => {
+        event.preventDefault();
+        axios.post("/api/user/login", null, {
+            auth: {
+                username: userName,
+                password: password
+            }
+        })
+            .then(response => {
+                set({user:response.data})
+                navigate("/")
+            })
+            .catch(console.error)
+    },
+
+    me: () => {
+        axios.get("/api/user/me")
+            .then(response => set({user:response.data}))
+    }
 
     // STORE END
 }));
