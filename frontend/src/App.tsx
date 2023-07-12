@@ -53,7 +53,7 @@ function App() {
     return (
         <>
             <GlobalStyle/>
-            <h1>{user}</h1>
+            <h1 style={{ position:"absolute", right:30, top:-10}}>{user}</h1>
             <Routes>
 
                 <Route element={<ProtectedRoutes user={user}/>}>

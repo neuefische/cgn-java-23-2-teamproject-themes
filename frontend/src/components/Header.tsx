@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import LogoutButton from "./LogoutButton.tsx";
 
 export default function Header() {
     return (
@@ -11,6 +12,7 @@ export default function Header() {
             <Title>
                 THEMES
             </Title>
+            <LogoutButton/>
         </HeaderElement>
     )
 }

@@ -29,7 +29,10 @@ public class SecurityConfig {
                 .csrfTokenRequestHandler(requestHandler))
             .httpBasic(Customizer.withDefaults())
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
-            .and()
+                .and()
+                .logout()
+                .logoutUrl("/api/user/logout")
+                .and()
             .authorizeHttpRequests(httpRequests ->
                 httpRequests
                     .requestMatchers(HttpMethod.GET, "/api/theme").permitAll()
