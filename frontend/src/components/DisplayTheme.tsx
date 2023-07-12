@@ -1,39 +1,20 @@
 import {Theme} from "../utils/types.ts"
 import SeasonToggle from "./SeasonToggle.tsx"
-import {useState} from "react";
 import styled from "styled-components";
-import {useFetch} from "../hooks/useFetch.ts";
+import PrevNextButtons from "./PrevNextButtons.tsx";
+import {getCurrentSeasonImageUrl} from "../utils/utils.ts";
 
 type Props = {
-    theme: Theme
+    currentTheme: Theme
 }
 
-export default function DisplayTheme({theme}: Props) {
-
-    const [season, setSeason] = useState<string>(theme.seasonStatus);
-    const deleteTheme = useFetch((state) => state.deleteTheme);
-
-    function getCurrentSeasonImageUrl(theme: Theme, season: string): string {
-        switch (season) {
-            case "SPRING":
-                return theme.springUrl;
-            case "SUMMER":
-                return theme.summerUrl;
-            case "AUTUMN":
-                return theme.autumnUrl;
-            case "WINTER":
-                return theme.winterUrl;
-            default:
-                return theme.summerUrl;
-        }
-    }
-
+export default function DisplayTheme({currentTheme}: Props) {
 
     return (
         <ThemeContainer>
-            <img width="200px" height="200px" src={getCurrentSeasonImageUrl(theme, season)} alt="Theme image"/>
-            <SeasonToggle season={season} setSeason={setSeason} theme={theme}/>
-            <DeleteButton onClick={()=>deleteTheme(theme.id)}>DELETE THEME</DeleteButton>
+            <Img src={getCurrentSeasonImageUrl(currentTheme)} alt="Theme image"/>
+            <SeasonToggle theme={currentTheme}/>
+            <PrevNextButtons theme={currentTheme}/>
         </ThemeContainer>
     )
 
@@ -42,14 +23,13 @@ export default function DisplayTheme({theme}: Props) {
 const ThemeContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 3.9vh;
   align-items: center;
 `;
 
-const DeleteButton = styled.button`
-  background: #dc143c;
-
-  &:hover {
-    background: #ff0000;
-  }
+const Img=styled.img`
+  width: 320px;
+  height: 320px;
+  border-radius: 5px;
+  box-shadow: var(--shadow1);
 `;
