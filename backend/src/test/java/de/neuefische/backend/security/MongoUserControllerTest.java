@@ -32,6 +32,17 @@ class MongoUserControllerTest {
 
     @Test
     @WithMockUser(username = "testUser", password = "testPassword")
+    void getUsername_whenLoggedInGetUserName() throws Exception {
+        // GIVEN that user is logged in
+        // WHEN
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/user/login").with(csrf()))
+            // THEN
+            .andExpect(MockMvcResultMatchers.status().isOk())
+            .andExpect(MockMvcResultMatchers.content().string("testUser"));
+    }
+
+    @Test
+    @WithMockUser(username = "testUser", password = "testPassword")
     void getUserName_whenLogin() throws Exception {
         // GIVEN that user is logged in
         // WHEN
@@ -43,7 +54,7 @@ class MongoUserControllerTest {
 
     @Test
     @WithMockUser(username = "testUser", password = "testPassword")
-    void logoutTest() throws Exception {
+    void expectNoContent_whenLogoutUser() throws Exception {
         //GIVEN
         mockMvc.perform(MockMvcRequestBuilders.post("/api/user/login").with(csrf()));
         //WHEN
@@ -53,12 +64,12 @@ class MongoUserControllerTest {
     }
 
     @Test
-    void registerTest() throws Exception {
+    void expectRegistraion_whenRegisterUser() throws Exception {
         //GIVEN
         String testUserWithoutId = """
                 {
-                    "username": "teamthemes",
-                    "password": "themes123"
+                    "username": "themeTest",
+                    "password": "secretPass3"
                 }
             """;
 
@@ -70,8 +81,5 @@ class MongoUserControllerTest {
             //THEN
             .andExpect(MockMvcResultMatchers.status().isOk())
             .andExpect(MockMvcResultMatchers.content().string("registered"));
-
     }
-
-
 }
