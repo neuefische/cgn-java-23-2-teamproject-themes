@@ -28,8 +28,8 @@ public class MongoUserController {
     }
 
     @PostMapping("/logout")
-    public String logout() {
-        return "logged out";
+    public void logout() {
+        SecurityContextHolder.clearContext();
     }
 
     @PostMapping("/register")
