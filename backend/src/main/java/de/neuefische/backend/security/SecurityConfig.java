@@ -24,26 +24,30 @@ public class SecurityConfig {
         requestHandler.setCsrfRequestAttributeName(null);
 
         return http
-            .csrf(csrf -> csrf
-                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .csrfTokenRequestHandler(requestHandler))
-            .httpBasic(Customizer.withDefaults())
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
-                .and()
-                .logout()
-                .logoutUrl("/api/user/logout")
-                .and()
-            .authorizeHttpRequests(httpRequests ->
-                httpRequests
-                    .requestMatchers(HttpMethod.GET, "/api/theme").permitAll()
-                    .requestMatchers("/api/theme").authenticated()
-                    .requestMatchers(HttpMethod.GET, "/api/theme/**").permitAll()
-                    .requestMatchers("/api/theme/**").authenticated()
-                    .requestMatchers("/api/user/me").permitAll()
-                    .requestMatchers("/api/user/login").permitAll()
-                    .anyRequest().authenticated()
-            )
-            .build();
+                .csrf(csrf -> csrf
+                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                        .csrfTokenRequestHandler(requestHandler))
+
+                .httpBasic(Customizer.withDefaults())
+
+                .sessionManagement(httpSecuritySessionManagementConfigurer ->
+                        httpSecuritySessionManagementConfigurer
+                        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
+
+                .logout(logout -> logout.logoutUrl("/api/user/logout"))
+
+                .authorizeHttpRequests(httpRequests ->
+                        httpRequests
+                                .requestMatchers(HttpMethod.GET, "/api/theme").permitAll()
+                                .requestMatchers("/api/theme").authenticated()
+                                .requestMatchers(HttpMethod.GET, "/api/theme/**").permitAll()
+                                .requestMatchers("/api/theme/**").authenticated()
+                                .requestMatchers("/api/user/me").permitAll()
+                                .requestMatchers("/api/user/login").permitAll()
+                                .requestMatchers("/api/user/register").permitAll()
+                                .anyRequest().authenticated()
+                )
+                .build();
     }
 
     @Bean

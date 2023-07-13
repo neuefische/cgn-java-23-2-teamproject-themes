@@ -1,14 +1,18 @@
 package de.neuefische.backend.security;
 
+import jakarta.validation.Valid;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/user")
 public class MongoUserController {
+
+    private final MongoUserDetailsService mongoUserDetailsService;
+
+    public MongoUserController(MongoUserDetailsService mongoUserDetailsService) {
+        this.mongoUserDetailsService = mongoUserDetailsService;
+    }
 
     @GetMapping("me")
     public String getUserInfo2() {
@@ -24,6 +28,12 @@ public class MongoUserController {
     @PostMapping("/logout")
     public String logout() {
         return "logged out";
+    }
+
+    @PostMapping("/register")
+    public String register(@Valid @RequestBody MongoUserDTO newUserDTO) {
+        mongoUserDetailsService.registerNewUser(newUserDTO);
+        return "registered";
     }
 
 }
