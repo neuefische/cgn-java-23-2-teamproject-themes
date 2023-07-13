@@ -7,19 +7,19 @@ public record ThemeWithoutId(
         @NotBlank
         String name,
 
-        @Pattern(regexp = "\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]",
+        @Pattern(regexp = "^https://.*\\.(jpg|png|gif)$",
                 message = "Invalid URL")
         String springUrl,
 
-        @Pattern(regexp = "\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]",
+        @Pattern(regexp = "^https://.*\\.(jpg|png|gif)$",
                 message = "Invalid URL")
         String summerUrl,
 
-        @Pattern(regexp = "\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]",
+        @Pattern(regexp = "^https://.*\\.(jpg|png|gif)$",
                 message = "Invalid URL")
         String autumnUrl,
 
-        @Pattern(regexp = "\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]",
+        @Pattern(regexp = "^https://.*\\.(jpg|png|gif)$",
                 message = "Invalid URL")
         String winterUrl,
 

@@ -7,7 +7,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public record MongoUser(
     @Id
     String id,
-
     String username,
     String password
 ) {

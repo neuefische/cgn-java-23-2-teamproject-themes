@@ -27,7 +27,7 @@ public class MongoUserDetailsService implements UserDetailsService {
         return new User(mongoUser.username(), mongoUser.password(), Collections.emptyList());
     }
 
-    public void registerNewUser(MongoUserDTO newUserDTO){
+    public void registerNewUser(MongoUserWithoutId newUserDTO){
         MongoUser newUser = new MongoUser(idService.createId() ,newUserDTO.username(), newUserDTO.password());
         mongoUserRepository.save(newUser);
     }

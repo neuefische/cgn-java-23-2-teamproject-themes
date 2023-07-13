@@ -31,7 +31,7 @@ public class MongoUserController {
     }
 
     @PostMapping("/register")
-    public String register(@Valid @RequestBody MongoUserDTO newUserDTO) {
+    public String register(@Valid @RequestBody MongoUserWithoutId newUserDTO) {
         mongoUserDetailsService.registerNewUser(newUserDTO);
         return "registered";
     }
