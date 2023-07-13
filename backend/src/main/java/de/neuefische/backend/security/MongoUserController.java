@@ -4,6 +4,8 @@ import jakarta.validation.Valid;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @RestController
 @RequestMapping("/api/user")
 public class MongoUserController {
@@ -14,9 +16,12 @@ public class MongoUserController {
         this.mongoUserDetailsService = mongoUserDetailsService;
     }
 
-    @GetMapping("me")
-    public String getUserInfo2() {
-        return SecurityContextHolder.getContext().getAuthentication().getName();
+    @GetMapping("/me")
+    public String getUserInfo(Principal principal) {
+        if (principal == null) {
+            return "anonymousUser";
+        }
+        return principal.getName();
     }
 
 
