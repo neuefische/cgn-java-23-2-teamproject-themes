@@ -7,6 +7,8 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -27,8 +29,12 @@ public class MongoUserDetailsService implements UserDetailsService {
         return new User(mongoUser.username(), mongoUser.password(), Collections.emptyList());
     }
 
-    public void registerNewUser(MongoUserWithoutId newUserDTO){
-        MongoUser newUser = new MongoUser(idService.createId() ,newUserDTO.username(), newUserDTO.password());
+    public void registerNewUser(MongoUserWithoutId mongoUserWithoutId){
+
+        PasswordEncoder encoder = new Argon2PasswordEncoder(16, 32, 8, 1 << 16, 4);
+        String encodedPassword = encoder.encode(mongoUserWithoutId.password());
+
+        MongoUser newUser = new MongoUser(idService.createId() ,mongoUserWithoutId.username(), encodedPassword);
         mongoUserRepository.save(newUser);
     }
 
