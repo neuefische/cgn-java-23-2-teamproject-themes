@@ -17,11 +17,8 @@ public class MongoUserController {
     }
 
     @GetMapping("/me")
-    public String getUserInfo(Principal principal) {
-        if (principal == null) {
-            return "anonymousUser";
-        }
-        return principal.getName();
+    public String getUserInfo() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
 
