@@ -13,19 +13,19 @@ public record Theme(
         @NotBlank(message = "Name is mandatory")
         String name,
 
-        @Pattern(regexp = "\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]",
+        @Pattern(regexp = "^https://.*\\.(jpg|png|gif|jpeg)$",
                 message = "Invalid URL")
         String springUrl,
 
-        @Pattern(regexp = "\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]",
+        @Pattern(regexp = "^https://.*\\.(jpg|png|gif|jpeg)$",
                 message = "Invalid URL")
         String summerUrl,
 
-        @Pattern(regexp = "\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]",
+        @Pattern(regexp = "^https://.*\\.(jpg|png|gif|jpeg)$",
                 message = "Invalid URL")
         String autumnUrl,
 
-        @Pattern(regexp = "\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]",
+        @Pattern(regexp = "^https://.*\\.(jpg|png|gif|jpeg)$",
                 message = "Invalid URL")
         String winterUrl,
         SeasonStatus seasonStatus) {
