@@ -11,6 +11,7 @@ import {useFetch} from "./hooks/useFetch.ts";
 import EditTheme from "./pages/EditTheme.tsx";
 import RegisterPage from "./pages/RegisterPage.tsx";
 
+
 function App() {
 
     const themes = useFetch((state) => state.themes);
@@ -26,23 +27,29 @@ function App() {
         me();
     }, [me])
 
-    if (themes.length === 0) {
-        return null;
-    }
+    if (themes.length === 0) return (<>
+        <GlobalStyle/>
+        <Routes>
+            <Route element={<ProtectedRoutes user={user}/>}>
+                <Route path="/add-theme" element={<AddTheme/>}/>
+                <Route path="/*" element={<Navigate to="/add-theme"/>}/>
+            </Route>
+            <Route path="/login" element={<LoginPage/>}/>
+        </Routes>
+    </>);
+
 
     return (<>
 
             <GlobalStyle/>
-            <h2 style={{position: "absolute", right: 30, top: -8}}>{user}</h2>
-            <Routes>
 
+            <Routes>
                 <Route element={<ProtectedRoutes user={user}/>}>
                     <Route path="/" element={<Home/>}/>
                     <Route path="/themes" element={<Gallery/>}/>
                     <Route path="/add-theme" element={<AddTheme/>}/>
                     <Route path="/edit-theme/:id" element={<EditTheme/>}/>
                     <Route path="/*" element={<Navigate to="/"/>}/>
-
                 </Route>
                 <Route path="/register" element={<RegisterPage/>}/>
                 <Route path="/login" element={<LoginPage/>}/>
@@ -54,3 +61,4 @@ function App() {
 }
 
 export default App
+

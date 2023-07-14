@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import { ThemeWithoutId, Theme } from "../utils/types.ts";
 import axios from "axios";
-import {FormEvent} from "react";
 import {NavigateFunction} from "react-router-dom";
 
 type State = {
@@ -16,9 +15,9 @@ type State = {
     decrementThemeIndex: (themeLength: number) => void,
     incrementThemeIndex: (themeLength: number) => void,
     user: string,
-    login: (event: FormEvent, userName: string, password: string, navigate: NavigateFunction) => void,
+    login: (userName: string, password: string, navigate: NavigateFunction) => void,
     me: () => void,
-    register: (event: FormEvent<HTMLFormElement>, userName:string, password: string, repeatedPassword: string, setPassword: (password:string) => void, setRepeatedPassword: (repeatedPassword:string) => void, navigate: NavigateFunction) => void
+    register: (userName:string, password: string, repeatedPassword: string, setPassword: (password:string) => void, setRepeatedPassword: (repeatedPassword:string) => void, navigate: NavigateFunction) => void
 };
 
 export const useFetch = create<State>((set, get) => ({
@@ -86,8 +85,7 @@ export const useFetch = create<State>((set, get) => ({
 
     user: "",
 
-    login: (event: FormEvent, userName: string, password: string, navigate: NavigateFunction) => {
-        event.preventDefault();
+    login: (userName: string, password: string, navigate: NavigateFunction) => {
         axios.post("/api/user/login", null, {
             auth: {
                 username: userName,
@@ -106,9 +104,7 @@ export const useFetch = create<State>((set, get) => ({
             .then(response => set({user:response.data}))
     },
 
-    register: (event: FormEvent<HTMLFormElement>, userName:string, password: string, repeatedPassword: string, setPassword: (password:string) => void, setRepeatedPassword: (repeatedPassword:string) => void, navigate: NavigateFunction) => {
-        event.preventDefault();
-
+    register: (userName:string, password: string, repeatedPassword: string, setPassword: (password:string) => void, setRepeatedPassword: (repeatedPassword:string) => void, navigate: NavigateFunction) => {
         const newUserData = {
             "username": `${userName}`,
             "password": `${password}`

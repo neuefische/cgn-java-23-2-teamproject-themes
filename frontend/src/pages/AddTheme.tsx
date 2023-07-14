@@ -6,10 +6,10 @@ import Header from "../components/Header.tsx";
 import {TextField} from "@mui/material";
 
 
-const springDefaultUrl = "https://tinyurl.com/23ekjpst"
-const summerDefaultUrl = "https://tinyurl.com/289sy8h3"
-const autumnDefaultUrl = "https://tinyurl.com/29673hma"
-const winterDefaultUrl = "https://tinyurl.com/2c9rhuvc"
+const springDefaultUrl = "https://cdn.discordapp.com/attachments/1090325789939085312/1123893739421708328/00038-162447185.png"
+const summerDefaultUrl = "https://cdn.discordapp.com/attachments/1090325789939085312/1123893755842412616/00001-918857782.png"
+const autumnDefaultUrl = "https://cdn.discordapp.com/attachments/1090325789939085312/1123893768257540137/00043-3644440715.png"
+const winterDefaultUrl = "https://cdn.discordapp.com/attachments/1090325789939085312/1123893783323488316/00006-1847996727.png"
 
 
 export default function AddTheme() {

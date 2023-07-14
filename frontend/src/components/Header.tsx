@@ -1,12 +1,14 @@
 import styled from "styled-components";
 import LogoutButton from "./LogoutButton.tsx";
 import {useLocation} from "react-router-dom";
+import {useFetch} from "../hooks/useFetch.ts";
 
 export default function Header() {
 
     const location = useLocation();
     const onLoginPage = location.pathname === "/login";
     const onRegisterPage = location.pathname === "/register";
+    const user = useFetch((state) => state.user);
 
     return (
         <HeaderElement>
@@ -31,9 +33,12 @@ export default function Header() {
                 </>
             }
             {!onLoginPage && !onRegisterPage && <LogoutButton/>}
+            <StyledUser>{user}</StyledUser>
         </HeaderElement>
     )
 }
+
+
 
 const HeaderElement = styled.header`
   display: flex;
@@ -58,3 +63,11 @@ const Title = styled.h1`
   color: var(--colorBlack);
   margin: 0;
 `;
+
+const StyledUser= styled.h2`
+  font-family: var(--font2);
+  font-size: 14px;
+  position: absolute;
+  right: 4.5%;
+  top: 5px;
+    `;
