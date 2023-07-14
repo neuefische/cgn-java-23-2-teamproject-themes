@@ -1,4 +1,3 @@
-
 import LoginPage from "./pages/LoginPage.tsx";
 import {useEffect} from "react";
 import {Route, Routes, Navigate} from "react-router-dom";
@@ -10,6 +9,7 @@ import AddTheme from "./pages/AddTheme.tsx";
 import Navigation from "./components/Navigation.tsx";
 import {useFetch} from "./hooks/useFetch.ts";
 import EditTheme from "./pages/EditTheme.tsx";
+import RegisterPage from "./pages/RegisterPage.tsx";
 
 function App() {
 
@@ -24,16 +24,16 @@ function App() {
 
     useEffect(() => {
         me();
-    }, [])
+    }, [me])
 
     if (themes.length === 0) {
         return null;
     }
 
-    return (        <>
+    return (<>
 
             <GlobalStyle/>
-            <h2 style={{ position:"absolute", right:30, top:-8}}>{user}</h2>
+            <h2 style={{position: "absolute", right: 30, top: -8}}>{user}</h2>
             <Routes>
 
                 <Route element={<ProtectedRoutes user={user}/>}>
@@ -42,12 +42,13 @@ function App() {
                     <Route path="/add-theme" element={<AddTheme/>}/>
                     <Route path="/edit-theme/:id" element={<EditTheme/>}/>
                     <Route path="/*" element={<Navigate to="/"/>}/>
+
                 </Route>
-
+                <Route path="/register" element={<RegisterPage/>}/>
                 <Route path="/login" element={<LoginPage/>}/>
-
             </Routes>
-            <Navigation/>
+            {user !== "anonymousUser" && <Navigation/>}
+
         </>
     )
 }

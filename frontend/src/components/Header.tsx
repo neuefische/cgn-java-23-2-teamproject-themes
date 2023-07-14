@@ -1,7 +1,13 @@
 import styled from "styled-components";
 import LogoutButton from "./LogoutButton.tsx";
+import {useLocation} from "react-router-dom";
 
 export default function Header() {
+
+    const location = useLocation();
+    const onLoginPage = location.pathname === "/login";
+    const onRegisterPage = location.pathname === "/register";
+
     return (
         <HeaderElement>
             <Line>
@@ -12,7 +18,19 @@ export default function Header() {
             <Title>
                 THEMES
             </Title>
-            <LogoutButton/>
+            {(onLoginPage || onRegisterPage) &&
+                <>
+                <Line>
+                    <svg width="30" height="1" viewBox="0 0 30 1" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <line y1="0.5" x2="30" y2="0.5" width="30px" height="1px" stroke="var(--colorBlack)"/>
+                    </svg>
+                </Line>
+                <Title>
+                    {onLoginPage ? "LOGIN" : "REGISTRATION"}
+                </Title>
+                </>
+            }
+            {!onLoginPage && !onRegisterPage && <LogoutButton/>}
         </HeaderElement>
     )
 }
