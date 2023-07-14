@@ -64,7 +64,7 @@ class MongoUserControllerTest {
     }
 
     @Test
-    void expectRegistraion_whenRegisterUser() throws Exception {
+    void expectRegistration_whenRegisterUser() throws Exception {
         //GIVEN
         String testUserWithoutId = """
                 {
