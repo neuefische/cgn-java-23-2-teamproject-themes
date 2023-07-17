@@ -1,4 +1,28 @@
 package de.neuefische.backend;
 
-public record ThemeWithoutId(String name, String springUrl, String summerUrl, String autumnUrl, String winterUrl, SeasonStatus seasonStatus) {
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+
+public record ThemeWithoutId(
+        @NotBlank
+        String name,
+
+        @Pattern(regexp = "^https://.*\\.(jpg|png|gif)$",
+                message = "Invalid URL")
+        String springUrl,
+
+        @Pattern(regexp = "^https://.*\\.(jpg|png|gif)$",
+                message = "Invalid URL")
+        String summerUrl,
+
+        @Pattern(regexp = "^https://.*\\.(jpg|png|gif)$",
+                message = "Invalid URL")
+        String autumnUrl,
+
+        @Pattern(regexp = "^https://.*\\.(jpg|png|gif)$",
+                message = "Invalid URL")
+        String winterUrl,
+
+
+        SeasonStatus seasonStatus) {
 }

@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { ThemeWithoutId, Theme } from "../utils/types.ts";
 import axios from "axios";
+import {NavigateFunction} from "react-router-dom";
 
 type State = {
     themes: Theme[];
@@ -13,6 +14,10 @@ type State = {
     themeIndex: number,
     decrementThemeIndex: (themeLength: number) => void,
     incrementThemeIndex: (themeLength: number) => void,
+    user: string,
+    login: (userName: string, password: string, navigate: NavigateFunction) => void,
+    me: () => void,
+    register: (userName:string, password: string, repeatedPassword: string, setPassword: (password:string) => void, setRepeatedPassword: (repeatedPassword:string) => void, navigate: NavigateFunction) => void
 };
 
 export const useFetch = create<State>((set, get) => ({
@@ -76,7 +81,50 @@ export const useFetch = create<State>((set, get) => ({
     incrementThemeIndex: (themeLength) =>
         set((state) => ({
             themeIndex: (state.themeIndex === (themeLength - 1)) ? 0 : (state.themeIndex + 1)
-        }))
+        })),
+
+    user: "",
+
+    login: (userName: string, password: string, navigate: NavigateFunction) => {
+        axios.post("/api/user/login", null, {
+            auth: {
+                username: userName,
+                password: password
+            }
+        })
+            .then(response => {
+                set({user:response.data})
+                navigate("/")
+            })
+            .catch(console.error)
+    },
+
+    me: () => {
+        axios.get("/api/user/me")
+            .then(response => set({user:response.data}))
+    },
+
+    register: (userName:string, password: string, repeatedPassword: string, setPassword: (password:string) => void, setRepeatedPassword: (repeatedPassword:string) => void, navigate: NavigateFunction) => {
+        const newUserData = {
+            "username": `${userName}`,
+            "password": `${password}`
+        }
+
+        if (password === repeatedPassword) {
+
+            axios.post("/api/user/register", newUserData)
+                .then(response => {
+                    console.error(response)
+                    navigate("/login")
+                })
+                .catch(console.error)
+
+        } else {
+            setPassword("");
+            setRepeatedPassword("");
+        }
+},
 
     // STORE END
 }));
+

@@ -7,13 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@WithMockUser
 class ThemeControllerTest {
 
     @Autowired
@@ -48,11 +51,13 @@ class ThemeControllerTest {
                    "seasonStatus": "SUMMER"
                 }
             """;
+
         //WHEN
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/api/theme")
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(testDTOThemeJson))
+                    .content(testDTOThemeJson)
+                    .with(csrf()))
             //THEN
             .andExpect(MockMvcResultMatchers.status().isOk())
             .andExpect(MockMvcResultMatchers.jsonPath("name").value("Test Theme"))
@@ -61,6 +66,32 @@ class ThemeControllerTest {
             .andExpect(MockMvcResultMatchers.jsonPath("autumnUrl").value("https://autumn.png"))
             .andExpect(MockMvcResultMatchers.jsonPath("winterUrl").value("https://winter.png"))
             .andExpect(MockMvcResultMatchers.jsonPath("seasonStatus").value("SUMMER"));
+    }
+
+    @DirtiesContext
+    @Test
+    void expectError403_whenAddThemeWithoutXsrfToken() throws Exception {
+
+        //GIVEN
+        String testDTOThemeJson = """
+               {
+                   "name": "Test Theme",
+                   "springUrl": "https://spring.png",
+                   "summerUrl": "https://summer.png",
+                   "autumnUrl": "https://autumn.png",
+                   "winterUrl": "https://winter.png",
+                   "seasonStatus": "SUMMER"
+                }
+            """;
+        //WHEN
+        mockMvc.perform(
+                MockMvcRequestBuilders.post("/api/theme")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(testDTOThemeJson)
+                    //-> without csrf()
+                    )
+            //THEN
+            .andExpect(MockMvcResultMatchers.status().isForbidden());
     }
 
     @DirtiesContext
@@ -82,7 +113,8 @@ class ThemeControllerTest {
         String result = mockMvc.perform(
                 MockMvcRequestBuilders.post("/api/theme")
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(initialDTOThemeJson))
+                    .content(initialDTOThemeJson)
+                    .with(csrf()))
             .andReturn().getResponse().getContentAsString();
 
         Theme saveResultTheme = objectMapper.readValue(result, Theme.class);
@@ -115,7 +147,8 @@ class ThemeControllerTest {
         mockMvc.perform(
                 MockMvcRequestBuilders.put("/api/theme/%s".formatted(id))
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(DTOThemeJsonToPut))
+                    .content(DTOThemeJsonToPut)
+                    .with(csrf()))
 
             //THEN
             .andExpect(MockMvcResultMatchers.status().isOk())
@@ -142,7 +175,8 @@ class ThemeControllerTest {
         String result = mockMvc.perform(
                 MockMvcRequestBuilders.post("/api/theme")
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(initialDTOThemeJson))
+                    .content(initialDTOThemeJson)
+                    .with(csrf()))
             .andReturn().getResponse().getContentAsString();
 
         Theme saveResultTheme = objectMapper.readValue(result, Theme.class);
@@ -176,7 +210,8 @@ class ThemeControllerTest {
         String result = mockMvc.perform(
                 MockMvcRequestBuilders.post("/api/theme")
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(initialDTOThemeJson))
+                    .content(initialDTOThemeJson)
+                    .with(csrf()))
             .andReturn().getResponse().getContentAsString();
 
         Theme saveResultTheme = objectMapper.readValue(result, Theme.class);
@@ -184,7 +219,7 @@ class ThemeControllerTest {
 
         //WHEN
         mockMvc.perform(
-                MockMvcRequestBuilders.delete("/api/theme/%s".formatted(id)))
+                MockMvcRequestBuilders.delete("/api/theme/%s".formatted(id)).with(csrf()))
 
             //THEN
             .andExpect(MockMvcResultMatchers.status().isOk());

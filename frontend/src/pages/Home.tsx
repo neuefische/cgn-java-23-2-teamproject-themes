@@ -16,8 +16,7 @@ function Home() {
             <Main>
                 <DisplayTheme key={currentTheme.id} currentTheme={currentTheme}/>
             </Main>
-        </StyledBody>
-    );
+        </StyledBody>)
 }
 
 export default Home;
