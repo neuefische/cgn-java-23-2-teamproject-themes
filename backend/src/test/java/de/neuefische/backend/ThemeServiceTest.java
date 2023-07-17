@@ -97,9 +97,11 @@ class ThemeServiceTest {
         String id = "12345678";
 
         //When
+        when(themeRepo.existsById(id)).thenReturn(true);
         themeService.deleteThemeById(id);
 
         //Then
         verify(themeRepo).deleteById(id);
     }
+
 }

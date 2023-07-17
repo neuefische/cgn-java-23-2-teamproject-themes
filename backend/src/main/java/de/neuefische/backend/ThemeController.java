@@ -53,7 +53,7 @@ public class ThemeController {
         themeService.deleteThemeById(id);
     }
 
-    @ExceptionHandler({NoSuchThemeException.class })
+    @ExceptionHandler({NoSuchThemeException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorMessage handleNoSuchElementExceptions(NoSuchThemeException exception) {
         return new ErrorMessage(exception.getMessage());
