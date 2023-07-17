@@ -37,5 +37,4 @@ public class MongoUserDetailsService implements UserDetailsService {
         MongoUser newUser = new MongoUser(idService.createId() ,mongoUserWithoutId.username(), encodedPassword);
         mongoUserRepository.save(newUser);
     }
-
 }

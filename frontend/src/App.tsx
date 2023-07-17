@@ -35,6 +35,7 @@ function App() {
                 <Route path="/*" element={<Navigate to="/add-theme"/>}/>
             </Route>
             <Route path="/login" element={<LoginPage/>}/>
+            <Route path="/register" element={<RegisterPage/>}/>
         </Routes>
     </>);
 
