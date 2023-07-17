@@ -43,6 +43,9 @@ public class ThemeService {
     }
 
     public void deleteThemeById(String id) {
+            if(!themeRepo.existsById(id)) {
+                throw new NoSuchThemeException("No theme found with Id: " + id);
+            }
         themeRepo.deleteById(id);
     }
 }
