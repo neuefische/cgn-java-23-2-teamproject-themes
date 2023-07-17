@@ -41,7 +41,7 @@ class ThemeControllerTest {
     @Test
     void expectTheme_whenAddTheme() throws Exception {
         //GIVEN
-        String testDTOThemeJson = """
+        String testThemeWithoutIdJson = """
                {
                    "name": "Test Theme",
                    "springUrl": "https://spring.png",
@@ -56,7 +56,7 @@ class ThemeControllerTest {
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/api/theme")
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(testDTOThemeJson)
+                    .content(testThemeWithoutIdJson)
                     .with(csrf()))
             //THEN
             .andExpect(MockMvcResultMatchers.status().isOk())

@@ -4,8 +4,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.NoSuchElementException;
-
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -15,9 +13,9 @@ public class GlobalExceptionHandler {
         return new ErrorMessage(exception.getAllErrors().get(0).getDefaultMessage());
     }
 
-    @ExceptionHandler({NoSuchElementException.class, })
+    @ExceptionHandler({NoSuchThemeException.class, })
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorMessage handleNoSuchElementExceptions(NoSuchElementException exception) {
+    public ErrorMessage handleNoSuchElementExceptions(NoSuchThemeException exception) {
         return new ErrorMessage(exception.getMessage());
     }
 }
