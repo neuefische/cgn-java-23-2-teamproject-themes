@@ -231,7 +231,7 @@ class ThemeControllerTest {
 
     @DirtiesContext
     @Test
-    void expectNoSuchThemeException_whenDeleteNonExistingThemeById() throws Exception {
+    void expectNoSuchThemeException_whenDeleteThemeByInvalidId() throws Exception {
         //Given
         String nonExistingId = "nonExistingId";
 
