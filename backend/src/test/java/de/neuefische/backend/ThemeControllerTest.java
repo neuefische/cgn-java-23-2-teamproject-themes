@@ -228,4 +228,18 @@ class ThemeControllerTest {
                 MockMvcRequestBuilders.get("/api/theme"))
             .andExpect(MockMvcResultMatchers.content().json("[]"));
     }
+
+    @DirtiesContext
+    @Test
+    void expectNoSuchThemeException_whenDeleteNonExistingThemeById() throws Exception {
+        //Given
+        String nonExistingId = "nonExistingId";
+
+        //When & Then
+        mockMvc.perform(
+                MockMvcRequestBuilders.delete("/api/theme/" + nonExistingId)
+                    .with(csrf()))
+            .andExpect(MockMvcResultMatchers.status().isNotFound())
+            .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("No theme found with Id: " + nonExistingId));
+    }
 }
