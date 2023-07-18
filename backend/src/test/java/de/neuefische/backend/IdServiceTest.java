@@ -2,7 +2,6 @@ package de.neuefische.backend;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.data.annotation.Id;
 
 import static org.mockito.Mockito.when;
 

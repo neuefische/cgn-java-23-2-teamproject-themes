@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -19,10 +18,6 @@ public class ThemeService {
 
     public List<Theme> getThemes(String currentUserId) {
         List<Theme> allThemes = themeRepo.findAll();
-
-        if (allThemes.isEmpty()) {
-            throw new NoSuchThemeException("No themes found");
-        }
 
         return allThemes.stream()
                 .filter(theme -> Objects.equals(theme.authorId(), currentUserId)).toList();

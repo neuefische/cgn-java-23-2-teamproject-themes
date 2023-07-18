@@ -2,13 +2,10 @@ package de.neuefische.backend;
 
 import de.neuefische.backend.exception.ErrorMessage;
 import de.neuefische.backend.exception.NoSuchThemeException;
-import de.neuefische.backend.security.MongoUserDetailsService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 
@@ -18,32 +15,28 @@ public class ThemeController {
 
     private final ThemeService themeService;
 
-    private final MongoUserDetailsService mongoUserDetailsService;
+    private final GetCurrentUserIdService getCurrentUserIdService;
 
     @Autowired
-    public ThemeController(ThemeService themeService, MongoUserDetailsService mongoUserDetailsService) {
+    public ThemeController(ThemeService themeService, GetCurrentUserIdService getCurrentUserIdService ) {
         this.themeService = themeService;
-        this.mongoUserDetailsService = mongoUserDetailsService;
+        this.getCurrentUserIdService = getCurrentUserIdService;
     }
 
-    private String getCurrentUserId() {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        return this.mongoUserDetailsService.getUserIdByUsername(username);
-    }
 
     @GetMapping("/theme")
     public List<Theme> getThemes() {
-        return this.themeService.getThemes(getCurrentUserId());
+        return this.themeService.getThemes(getCurrentUserIdService.getCurrentUserId());
     }
 
     @PostMapping("/theme")
     public Theme addTheme(@Valid @RequestBody ThemeWithoutId themeWithoutId) {
-        return this.themeService.addTheme(themeWithoutId, getCurrentUserId());
+        return this.themeService.addTheme(themeWithoutId, getCurrentUserIdService.getCurrentUserId());
     }
 
     @PutMapping("/theme/{id}")
     public Theme updateTheme(@PathVariable String id, @Valid @RequestBody ThemeWithoutId themeWithoutId) {
-        return themeService.updateTheme(id, themeWithoutId, getCurrentUserId());
+        return themeService.updateTheme(id, themeWithoutId, getCurrentUserIdService.getCurrentUserId());
     }
 
 
