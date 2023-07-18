@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -15,16 +17,25 @@ public class ThemeService {
     private final IdService idService;
 
 
-    public List<Theme> getThemes() {
-        return themeRepo.findAll();
+    public List<Theme> getThemes(String currentUserId) {
+        List<Theme> allThemes = themeRepo.findAll();
+
+        if (allThemes.isEmpty()) {
+            throw new NoSuchThemeException("No themes found");
+        }
+
+        return allThemes.stream()
+                .filter(theme -> Objects.equals(theme.authorId(), currentUserId)).toList();
     }
 
-    public Theme updateTheme(String id, ThemeWithoutId themeWithoutId) {
-        Theme themeToSave = new Theme(id, themeWithoutId.name(),themeWithoutId.springUrl(),themeWithoutId.summerUrl(),themeWithoutId.autumnUrl(),themeWithoutId.winterUrl(),themeWithoutId.seasonStatus());
+    public Theme updateTheme(String id, ThemeWithoutId themeWithoutId, String authorId) {
+        Theme themeToSave = new Theme(id, themeWithoutId.name(),themeWithoutId.springUrl(),themeWithoutId.summerUrl(),themeWithoutId.autumnUrl(),themeWithoutId.winterUrl(),themeWithoutId.seasonStatus(),
+                authorId
+        );
         return themeRepo.save(themeToSave);
     }
 
-    public Theme addTheme(ThemeWithoutId themeWithoutId) {
+    public Theme addTheme(ThemeWithoutId themeWithoutId, String authorId) {
 
         Theme themeToSave = new Theme(
                 idService.createId(),
@@ -33,7 +44,9 @@ public class ThemeService {
                 themeWithoutId.summerUrl(),
                 themeWithoutId.autumnUrl(),
                 themeWithoutId.winterUrl(),
-                themeWithoutId.seasonStatus());
+                themeWithoutId.seasonStatus(),
+                authorId
+                );
         return this.themeRepo.save(themeToSave);
     }
 

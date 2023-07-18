@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -37,4 +38,11 @@ public class MongoUserDetailsService implements UserDetailsService {
         MongoUser newUser = new MongoUser(idService.createId() ,mongoUserWithoutId.username(), encodedPassword);
         mongoUserRepository.save(newUser);
     }
+
+    public String getUserIdByUsername(String username){
+        MongoUser mongoUser = mongoUserRepository.findByUsername(username).orElseThrow(() ->
+                new UsernameNotFoundException("Username" + username + "not found"));
+        return mongoUser.id();
+    }
+
 }

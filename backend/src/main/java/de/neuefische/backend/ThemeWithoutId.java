@@ -24,5 +24,6 @@ public record ThemeWithoutId(
         String winterUrl,
 
 
-        SeasonStatus seasonStatus) {
+        SeasonStatus seasonStatus
+) {
 }
