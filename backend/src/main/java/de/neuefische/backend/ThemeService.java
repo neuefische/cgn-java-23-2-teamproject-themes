@@ -44,6 +44,7 @@ public class ThemeService {
             themeWithoutId.winterUrl(),
             themeWithoutId.seasonStatus(),
             Instant.now());
+
         return this.themeRepo.save(themeToSave);
     }
 

@@ -11,6 +11,7 @@ import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.Collections;
 
 @Service
@@ -34,7 +35,11 @@ public class MongoUserDetailsService implements UserDetailsService {
         PasswordEncoder encoder = new Argon2PasswordEncoder(16, 32, 8, 1 << 16, 4);
         String encodedPassword = encoder.encode(mongoUserWithoutId.password());
 
-        MongoUser newUser = new MongoUser(idService.createId() ,mongoUserWithoutId.username(), encodedPassword);
+        MongoUser newUser = new MongoUser(
+            idService.createId(),
+            mongoUserWithoutId.username(),
+            encodedPassword,
+            Instant.now());
         mongoUserRepository.save(newUser);
     }
 }
