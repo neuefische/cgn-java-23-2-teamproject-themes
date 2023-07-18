@@ -7,7 +7,7 @@ import de.neuefische.backend.security.MongoUserDetailsService;
 
 @Service
 @RequiredArgsConstructor
-public class GetCurrentUserIdService {
+public class UserIdService {
 
     private final MongoUserDetailsService mongoUserDetailsService;
 

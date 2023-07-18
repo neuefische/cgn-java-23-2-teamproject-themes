@@ -15,28 +15,28 @@ public class ThemeController {
 
     private final ThemeService themeService;
 
-    private final GetCurrentUserIdService getCurrentUserIdService;
+    private final UserIdService userIdService;
 
     @Autowired
-    public ThemeController(ThemeService themeService, GetCurrentUserIdService getCurrentUserIdService ) {
+    public ThemeController(ThemeService themeService, UserIdService userIdService) {
         this.themeService = themeService;
-        this.getCurrentUserIdService = getCurrentUserIdService;
+        this.userIdService = userIdService;
     }
 
 
     @GetMapping("/theme")
     public List<Theme> getThemes() {
-        return this.themeService.getThemes(getCurrentUserIdService.getCurrentUserId());
+        return this.themeService.getThemes(userIdService.getCurrentUserId());
     }
 
     @PostMapping("/theme")
     public Theme addTheme(@Valid @RequestBody ThemeWithoutId themeWithoutId) {
-        return this.themeService.addTheme(themeWithoutId, getCurrentUserIdService.getCurrentUserId());
+        return this.themeService.addTheme(themeWithoutId, userIdService.getCurrentUserId());
     }
 
     @PutMapping("/theme/{id}")
     public Theme updateTheme(@PathVariable String id, @Valid @RequestBody ThemeWithoutId themeWithoutId) {
-        return themeService.updateTheme(id, themeWithoutId, getCurrentUserIdService.getCurrentUserId());
+        return themeService.updateTheme(id, themeWithoutId, userIdService.getCurrentUserId());
     }
 
 

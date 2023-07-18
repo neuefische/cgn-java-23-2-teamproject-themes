@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.mockito.Mockito.*;
 
-class GetCurrentUserIdServiceTest {
+class UserIdServiceTest {
 
     MongoUserDetailsService mongoUserDetailsService = mock(MongoUserDetailsService.class);
 
