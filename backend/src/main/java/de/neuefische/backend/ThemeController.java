@@ -3,7 +3,7 @@ package de.neuefische.backend;
 import de.neuefische.backend.exception.ErrorMessage;
 import de.neuefische.backend.exception.NoSuchThemeException;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -11,17 +11,12 @@ import java.util.List;
 
 @RequestMapping("/api")
 @RestController
+@RequiredArgsConstructor
 public class ThemeController {
 
     private final ThemeService themeService;
 
     private final UserIdService userIdService;
-
-    @Autowired
-    public ThemeController(ThemeService themeService, UserIdService userIdService) {
-        this.themeService = themeService;
-        this.userIdService = userIdService;
-    }
 
 
     @GetMapping("/theme")

@@ -1,19 +1,18 @@
 package de.neuefische.backend.security;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/user")
 public class MongoUserController {
 
     private final MongoUserDetailsService mongoUserDetailsService;
 
-    public MongoUserController(MongoUserDetailsService mongoUserDetailsService) {
-        this.mongoUserDetailsService = mongoUserDetailsService;
-    }
-
+    
     @GetMapping("/me")
     public String getUserInfo() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
