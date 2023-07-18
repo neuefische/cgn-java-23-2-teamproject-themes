@@ -1,7 +1,10 @@
 package de.neuefische.backend;
 
+import de.neuefische.backend.exception.ErrorMessage;
+import de.neuefische.backend.exception.NoSuchThemeException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,6 +40,7 @@ public class ThemeController {
         return themeService.updateTheme(id, themeWithoutId);
     }
 
+
     @GetMapping("/theme/{id}")
     public Theme getThemeById(@PathVariable String id) {
 
@@ -48,4 +52,12 @@ public class ThemeController {
 
         themeService.deleteThemeById(id);
     }
+
+    @ExceptionHandler({NoSuchThemeException.class})
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorMessage handleNoSuchElementExceptions(NoSuchThemeException exception) {
+        return new ErrorMessage(exception.getMessage());
+    }
+
+
 }

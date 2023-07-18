@@ -1,5 +1,6 @@
 package de.neuefische.backend;
 
+import de.neuefische.backend.exception.NoSuchThemeException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -37,10 +38,14 @@ public class ThemeService {
     }
 
     public Theme getThemeById(String id) {
-        return themeRepo.findById(id).orElseThrow();
+        return themeRepo.findById(id)
+                .orElseThrow(() -> new NoSuchThemeException("No theme found with Id: " + id));
     }
 
     public void deleteThemeById(String id) {
+            if(!themeRepo.existsById(id)) {
+                throw new NoSuchThemeException("No theme found with Id: " + id);
+            }
         themeRepo.deleteById(id);
     }
 }

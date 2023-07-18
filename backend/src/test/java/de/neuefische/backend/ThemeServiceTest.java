@@ -1,5 +1,6 @@
 package de.neuefische.backend;
 
+import de.neuefische.backend.exception.NoSuchThemeException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -8,6 +9,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ThemeServiceTest {
     ThemeRepo themeRepo = mock(ThemeRepo.class);
@@ -92,14 +94,36 @@ class ThemeServiceTest {
     }
 
     @Test
+    void expectNoSuchThemeException_whenGetThemeByInvalidId(){
+        //Given
+        String invalidId = "invalidId";
+
+        //When
+        //Then
+        assertThrows(NoSuchThemeException.class, () -> themeService.getThemeById(invalidId));
+    }
+
+    @Test
     void test_deleteThemeById(){
         //Given
         String id = "12345678";
 
         //When
+        when(themeRepo.existsById(id)).thenReturn(true);
         themeService.deleteThemeById(id);
 
         //Then
         verify(themeRepo).deleteById(id);
     }
+
+    @Test
+    void expectNoSuchThemeException_whenDeleteThemeByInvalidId(){
+        //Given
+        String invalidId = "invalidId";
+
+        //When
+        //Then
+        assertThrows(NoSuchThemeException.class, () -> themeService.deleteThemeById(invalidId));
+    }
+
 }
