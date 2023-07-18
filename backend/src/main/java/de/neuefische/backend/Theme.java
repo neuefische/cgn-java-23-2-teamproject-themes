@@ -3,6 +3,8 @@ package de.neuefische.backend;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.Instant;
+
 @Document("themes")
 public record Theme(
         @Id
@@ -17,5 +19,8 @@ public record Theme(
         String autumnUrl,
 
         String winterUrl,
-        SeasonStatus seasonStatus) {
+
+        SeasonStatus seasonStatus,
+
+        Instant created) {
 }

@@ -3,6 +3,7 @@ package de.neuefische.backend;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -19,20 +20,30 @@ public class ThemeService {
     }
 
     public Theme updateTheme(String id, ThemeWithoutId themeWithoutId) {
-        Theme themeToSave = new Theme(id, themeWithoutId.name(),themeWithoutId.springUrl(),themeWithoutId.summerUrl(),themeWithoutId.autumnUrl(),themeWithoutId.winterUrl(),themeWithoutId.seasonStatus());
+        Theme themeToSave = new Theme(
+            id,
+            themeWithoutId.name(),
+            themeWithoutId.springUrl(),
+            themeWithoutId.summerUrl(),
+            themeWithoutId.autumnUrl(),
+            themeWithoutId.winterUrl(),
+            themeWithoutId.seasonStatus(),
+            Instant.now()
+        );
         return themeRepo.save(themeToSave);
     }
 
     public Theme addTheme(ThemeWithoutId themeWithoutId) {
 
         Theme themeToSave = new Theme(
-                idService.createId(),
-                themeWithoutId.name(),
-                themeWithoutId.springUrl(),
-                themeWithoutId.summerUrl(),
-                themeWithoutId.autumnUrl(),
-                themeWithoutId.winterUrl(),
-                themeWithoutId.seasonStatus());
+            idService.createId(),
+            themeWithoutId.name(),
+            themeWithoutId.springUrl(),
+            themeWithoutId.summerUrl(),
+            themeWithoutId.autumnUrl(),
+            themeWithoutId.winterUrl(),
+            themeWithoutId.seasonStatus(),
+            Instant.now());
         return this.themeRepo.save(themeToSave);
     }
 
