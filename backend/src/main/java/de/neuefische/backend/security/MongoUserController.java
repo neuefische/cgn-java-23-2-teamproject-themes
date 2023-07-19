@@ -12,7 +12,7 @@ public class MongoUserController {
 
     private final MongoUserDetailsService mongoUserDetailsService;
 
-    
+
     @GetMapping("/me")
     public String getUserInfo() {
         return SecurityContextHolder.getContext().getAuthentication().getName();

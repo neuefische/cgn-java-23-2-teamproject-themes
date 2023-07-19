@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
-@RequestMapping("/api")
+@RequestMapping("/api/theme")
 @RestController
 @RequiredArgsConstructor
 public class ThemeController {
@@ -18,30 +18,29 @@ public class ThemeController {
 
     private final UserIdService userIdService;
 
-
-    @GetMapping("/theme")
+    @GetMapping
     public List<Theme> getThemes() {
         return this.themeService.getThemes(userIdService.getCurrentUserId());
     }
 
-    @PostMapping("/theme")
+    @PostMapping
     public Theme addTheme(@Valid @RequestBody ThemeWithoutId themeWithoutId) {
         return this.themeService.addTheme(themeWithoutId, userIdService.getCurrentUserId());
     }
 
-    @PutMapping("/theme/{id}")
+    @PutMapping("/{id}")
     public Theme updateTheme(@PathVariable String id, @Valid @RequestBody ThemeWithoutId themeWithoutId) {
         return themeService.updateTheme(id, themeWithoutId, userIdService.getCurrentUserId());
     }
 
 
-    @GetMapping("/theme/{id}")
+    @GetMapping("/{id}")
     public Theme getThemeById(@PathVariable String id) {
 
         return themeService.getThemeById(id);
     }
 
-    @DeleteMapping("/theme/{id}")
+    @DeleteMapping("/{id}")
     public void deleteThemeById(@PathVariable String id) {
 
         themeService.deleteThemeById(id);
