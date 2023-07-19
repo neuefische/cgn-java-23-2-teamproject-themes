@@ -2,6 +2,7 @@ package de.neuefische.backend;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -14,9 +15,10 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
+
 @SpringBootTest
 @AutoConfigureMockMvc
-@WithMockUser
+@WithMockUser(username = "testUser", password = "secretPass3")
 class ThemeControllerTest {
 
     @Autowired
@@ -25,11 +27,33 @@ class ThemeControllerTest {
     @Autowired
     ObjectMapper objectMapper;
 
+    @BeforeEach
+    void setUp() throws Exception {
+
+        String testUserWithoutId = """
+                {
+                    "username": "testUser",
+                    "password": "secretPass3"
+                }
+            """;
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/user/register")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(testUserWithoutId)
+                .with(csrf())).andExpect(MockMvcResultMatchers.status().isOk());
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/user/login")
+                .with(csrf())
+        ).andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @DirtiesContext
     @Test
     void expectEmptyList_whenGetThemes() throws Exception {
 
         //GIVEN
-        // -> Init empty test MongoDB with flapdoodle
+        // -> Init empty test MongoDB Themes & Users with flapdoodle
+
         //WHEN
         mockMvc.perform(MockMvcRequestBuilders.get("/api/theme"))
             //THEN
@@ -49,6 +73,7 @@ class ThemeControllerTest {
                    "autumnUrl": "https://autumn.png",
                    "winterUrl": "https://winter.png",
                    "seasonStatus": "SUMMER"
+                    
                 }
             """;
 
@@ -66,6 +91,7 @@ class ThemeControllerTest {
             .andExpect(MockMvcResultMatchers.jsonPath("autumnUrl").value("https://autumn.png"))
             .andExpect(MockMvcResultMatchers.jsonPath("winterUrl").value("https://winter.png"))
             .andExpect(MockMvcResultMatchers.jsonPath("seasonStatus").value("SUMMER"));
+
     }
 
     @DirtiesContext

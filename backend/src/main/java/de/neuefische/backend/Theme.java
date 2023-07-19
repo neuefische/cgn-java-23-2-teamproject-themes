@@ -17,5 +17,8 @@ public record Theme(
         String autumnUrl,
 
         String winterUrl,
-        SeasonStatus seasonStatus) {
+        SeasonStatus seasonStatus,
+
+        String authorId
+) {
 }

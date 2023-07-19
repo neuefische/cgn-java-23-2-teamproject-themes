@@ -21,7 +21,8 @@ class ThemeServiceTest {
             "https://cdn.discordapp.com/attachments/1090325789939085312/1123893755842412616/00001-918857782.png",
             "https://cdn.discordapp.com/attachments/1090325789939085312/1123893768257540137/00043-3644440715.png",
             "https://cdn.discordapp.com/attachments/1090325789939085312/1123893783323488316/00006-1847996727.png",
-            SeasonStatus.SUMMER
+            SeasonStatus.SUMMER,
+            "12345"
     );
 
     ThemeWithoutId DTOtestTheme = new ThemeWithoutId("Default Theme",
@@ -40,7 +41,7 @@ class ThemeServiceTest {
                 .thenReturn(Collections.singletonList(testTheme));
 
         // when
-        List<Theme> actual = themeService.getThemes();
+        List<Theme> actual = themeService.getThemes("12345");
 
         // then
         Assertions.assertThat(actual)
@@ -55,7 +56,7 @@ class ThemeServiceTest {
         when(themeRepo.save(testTheme))
                 .thenReturn(testTheme);
         // when
-        Theme actual = themeService.addTheme(DTOtestTheme);
+        Theme actual = themeService.addTheme(DTOtestTheme, "12345");
 
         // then
         Assertions.assertThat(actual)
@@ -71,7 +72,7 @@ class ThemeServiceTest {
 
         //When
         when(themeRepo.save(testTheme)).thenReturn(expected);
-        Theme actual = themeService.updateTheme(id, DTOtestTheme);
+        Theme actual = themeService.updateTheme(id, DTOtestTheme, "12345");
 
         //Then
         Assertions.assertThat(expected).isEqualTo(actual);
