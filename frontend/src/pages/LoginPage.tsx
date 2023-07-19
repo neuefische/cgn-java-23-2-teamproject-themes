@@ -10,7 +10,6 @@ export default function LoginPage() {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
     const login = useFetch((state) => state.login);
-
     function handleUserNameInput(event: FormEvent<HTMLInputElement>) {
         setUserName(event.currentTarget.value);
     }

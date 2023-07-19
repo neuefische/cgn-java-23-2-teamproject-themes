@@ -3,12 +3,22 @@ import {useFetch} from "../hooks/useFetch.ts";
 import styled from "styled-components";
 import {getSeasonMainColor} from "../utils/utils.ts";
 import Header from "../components/Header.tsx";
+import {Navigate} from "react-router-dom";
 
 function Home() {
 
     const themes = useFetch((state) => state.themes);
+    const isLoading = useFetch(state => state.isLoading)
     const themeIndex = useFetch(state => state.themeIndex);
     const currentTheme = themes[themeIndex];
+
+    if (isLoading) {
+        return "loading ...";
+    }
+
+    if (!currentTheme) {
+        return <Navigate to={"/add-theme"}/>;
+    }
 
     return (
         <StyledBody $seasonstatus={currentTheme.seasonStatus}>

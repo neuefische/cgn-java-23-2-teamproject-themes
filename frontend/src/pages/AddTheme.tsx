@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {ThemeWithoutId} from "../utils/types.ts";
 import {useFetch} from "../hooks/useFetch.ts";
 import styled from "styled-components";
@@ -14,7 +14,12 @@ const winterDefaultUrl = "https://cdn.discordapp.com/attachments/109032578993908
 
 export default function AddTheme() {
 
-    const postTheme = useFetch(state => state.postTheme)
+    const postTheme = useFetch(state => state.postTheme);
+    const fetchThemes = useFetch((state) => state.fetchThemes);
+
+    useEffect(() => {
+        fetchThemes();
+    }, [fetchThemes]);
 
     function postThemeHandler(theme: { [p: string]: FormDataEntryValue }) {
         let name = theme.name.toString();
