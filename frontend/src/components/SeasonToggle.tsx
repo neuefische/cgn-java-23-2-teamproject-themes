@@ -23,7 +23,7 @@ export default function ToggleButtons({theme}: Props) {
         }
 
         theme.seasonStatus = newSeason;
-        putTheme(theme);
+        putTheme(theme, true);
     };
 
     return (

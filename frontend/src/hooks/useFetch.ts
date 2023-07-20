@@ -9,7 +9,7 @@ type State = {
     fetchThemes: () => void,
     deleteTheme: (id: string) => void,
     postTheme: (requestBody: ThemeWithoutId) => void,
-    putTheme: (requestBody: Theme) => void,
+    putTheme: (requestBody: Theme, forChangeSeason?: boolean) => void,
     getThemeById: (id: string | undefined) => Theme,
     isLoading: boolean,
 
@@ -65,12 +65,17 @@ export const useFetch = create<State>((set, get) => ({
 
     },
 
-    putTheme: (requestBody: Theme) => {
+    putTheme: (requestBody: Theme, forChangeSeason?: boolean) => {
         const { fetchThemes } = get();
         const { id, ...themeWithoutId } = requestBody;
         axios
             .put(`/api/theme/${id}`, themeWithoutId)
-            .then(fetchThemes)
+            .then(() => {
+                fetchThemes()
+                if (!forChangeSeason) {
+                    toast.success("Theme successfully updated!")
+                }
+            })
             .catch((error) => {
                 toast.error("Something went wrong!");
                 console.error(error);
