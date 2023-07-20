@@ -1,5 +1,5 @@
 import LoginPage from "./pages/LoginPage.tsx";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {Route, Routes, Navigate} from "react-router-dom";
 import ProtectedRoutes from "./components/ProtectedRoutes.tsx";
 import Home from "./pages/Home.tsx";
@@ -18,11 +18,20 @@ function App() {
     const me = useFetch((state) => state.me);
     const user = useFetch((state) => state.user);
     const fetchThemes = useFetch(state => state.fetchThemes);
+    const [initialLoad, setInitialLoad] = useState(true);
 
     useEffect(() => {
-        me();
-        fetchThemes();
+        try {
+            me();
+            fetchThemes();
+        } catch (e) {
+            console.error(e);
+        } finally {
+            setInitialLoad(false);
+        }
     }, [me, fetchThemes])
+
+    if (initialLoad) return null;
 
     return (<>
             <GlobalStyle/>
