@@ -112,10 +112,14 @@ export const useFetch = create<State>((set, get) => ({
             }
         })
             .then(response => {
-                set({user:response.data})
+                set({user: response.data})
                 navigate("/")
             })
-            .catch(console.error)
+            .then(() => toast.success("Login successful"))
+            .catch((error) => {
+                toast.error("You are not yet registered");
+                console.error(error);
+            });
     },
 
     me: () => {
@@ -133,10 +137,14 @@ export const useFetch = create<State>((set, get) => ({
 
             axios.post("/api/user/register", newUserData)
                 .then(response => {
-                    console.error(response)
-                    navigate("/login")
+                    console.error(response);
+                    navigate("/login");
                 })
-                .catch(console.error)
+                .then(()=>toast.success("Registration successful"))
+                .catch((error) => {
+                    console.error(error);
+                    toast.error("Please correct your Input");
+                })
 
         } else {
             setPassword("");
@@ -146,4 +154,3 @@ export const useFetch = create<State>((set, get) => ({
 
     // STORE END
 }));
-
