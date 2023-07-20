@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { ThemeWithoutId, Theme } from "../utils/types.ts";
 import axios from "axios";
 import {NavigateFunction} from "react-router-dom";
+import {toast} from 'react-toastify';
 
 type State = {
     themes: Theme[],
@@ -52,7 +53,8 @@ export const useFetch = create<State>((set, get) => ({
         axios
             .post("/api/theme", requestBody)
             .then(fetchThemes)
-            .catch(console.error);
+            .catch(console.error)
+            .then(() => toast.success("Theme successfully added!"));
     },
 
     putTheme: (requestBody: Theme) => {

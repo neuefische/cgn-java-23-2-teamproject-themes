@@ -70,5 +70,5 @@ const StyledUser= styled.h2`
   position: absolute;
   right: 50%;
   transform: translateX(50%);
-  top: -5px;
+  top: -10px;
     `;
