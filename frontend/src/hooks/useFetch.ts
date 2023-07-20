@@ -4,12 +4,13 @@ import axios from "axios";
 import {NavigateFunction} from "react-router-dom";
 
 type State = {
-    themes: Theme[];
-    fetchThemes: () => void;
-    deleteTheme: (id: string) => void;
-    postTheme: (requestBody: ThemeWithoutId) => void;
-    putTheme: (requestBody: Theme) => void;
-    getThemeById: (id: string | undefined) => Theme;
+    themes: Theme[],
+    fetchThemes: () => void,
+    deleteTheme: (id: string) => void,
+    postTheme: (requestBody: ThemeWithoutId) => void,
+    putTheme: (requestBody: Theme) => void,
+    getThemeById: (id: string | undefined) => Theme,
+    isLoading: boolean,
 
     themeIndex: number,
     decrementThemeIndex: (themeLength: number) => void,
@@ -23,15 +24,19 @@ type State = {
 export const useFetch = create<State>((set, get) => ({
     // STORE START
     themes: [],
+    isLoading: true,
 
     fetchThemes: () => {
+        set({isLoading: true})
         axios
             .get("/api/theme")
             .then((res) => res.data)
             .then((data) => {
                 set({ themes: data });
             })
-            .catch(console.error);
+            .catch(console.error)
+            .then(() => set({isLoading: false}));
+
     },
 
     deleteTheme: (id: string) => {

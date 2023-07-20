@@ -12,7 +12,7 @@ function Navigation() {
     const currentTheme = themes[themeIndex];
 
     return (
-        <Footer $seasonstatus={currentTheme.seasonStatus}>
+        <Footer $seasonstatus={currentTheme?.seasonStatus}>
             <NavBar>
                 <Link to={"/"}><NavButton selected={location.pathname === "/"} $variant={"side"}>Home</NavButton></Link>
                 <Link to={"/add-theme"}><NavButton selected={location.pathname === "/add-theme"} $variant={"center"}>Add Theme</NavButton></Link>
@@ -58,7 +58,7 @@ const NavButton = styled.button<NavButtonProps>`
 `;
 
 type StyledProps = {
-    $seasonstatus: string
+    $seasonstatus: string | undefined
 }
 
 const Footer = styled.footer<StyledProps>`
@@ -67,5 +67,5 @@ const Footer = styled.footer<StyledProps>`
   display: grid;
   place-items: center;
   width: 100%;
-  background: ${({$seasonstatus}) => getSeasonAccentColor($seasonstatus)};
+  background: ${({$seasonstatus}) => $seasonstatus ? getSeasonAccentColor($seasonstatus) : "var(--colorWhite)"};
 `;
