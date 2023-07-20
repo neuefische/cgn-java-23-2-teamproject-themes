@@ -71,7 +71,6 @@ export const useFetch = create<State>((set, get) => ({
         axios
             .put(`/api/theme/${id}`, themeWithoutId)
             .then(fetchThemes)
-            .then(() => toast.success("Theme successfully updated!"))
             .catch((error) => {
                 toast.error("Something went wrong!");
                 console.error(error);
