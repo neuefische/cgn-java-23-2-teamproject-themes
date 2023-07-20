@@ -15,7 +15,6 @@ export default function AddTheme() {
     const postTheme = useFetch(state => state.postTheme);
     const fetchThemes = useFetch((state) => state.fetchThemes);
 
-
     useEffect(() => {
         fetchThemes();
     }, [fetchThemes]);

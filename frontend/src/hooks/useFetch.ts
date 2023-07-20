@@ -45,7 +45,11 @@ export const useFetch = create<State>((set, get) => ({
         axios
             .delete(`/api/theme/${id}`)
             .then(fetchThemes)
-            .catch(console.error);
+            .then(() => toast.success("Theme successfully deleted!"))
+            .catch((error) => {
+                toast.error("Something went wrong!");
+                console.error(error);
+            });
     },
 
     postTheme: (requestBody: ThemeWithoutId) => {
@@ -53,8 +57,12 @@ export const useFetch = create<State>((set, get) => ({
         axios
             .post("/api/theme", requestBody)
             .then(fetchThemes)
-            .catch(console.error)
-            .then(() => toast.success("Theme successfully added!"));
+            .then(() => toast.success("Theme successfully added!"))
+            .catch((error) => {
+                toast.error("Something went wrong!");
+                console.error(error);
+            });
+
     },
 
     putTheme: (requestBody: Theme) => {
@@ -63,7 +71,11 @@ export const useFetch = create<State>((set, get) => ({
         axios
             .put(`/api/theme/${id}`, themeWithoutId)
             .then(fetchThemes)
-            .catch(console.error);
+            .then(() => toast.success("Theme successfully updated!"))
+            .catch((error) => {
+                toast.error("Something went wrong!");
+                console.error(error);
+            });
     },
 
     getThemeById: (id: string | undefined) => {
