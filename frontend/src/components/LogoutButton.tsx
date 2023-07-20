@@ -23,16 +23,18 @@ function LogoutButton() {
 export default LogoutButton;
 
 const Button = styled.button`
-  width: 70px;
-  height: 30px;
-  background: crimson;
-  border-radius: 10px;
+  width: 66px;
+  height: 26px;
+  background: tomato;
+  border-radius: 5px;
+  border-color: lightcoral;
   color: white;
   font-family: var(--font2);
+  font-size: 13px;
 
   position: absolute;
-  left: 30px;
-  top: 20px;
+  right: 26px;
+  top: 18px;
 
 
 `;
