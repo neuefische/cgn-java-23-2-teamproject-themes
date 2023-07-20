@@ -3,14 +3,14 @@ import { createGlobalStyle } from 'styled-components';
 const GlobalStyle = createGlobalStyle`
   @font-face {
     font-family: 'Sansation Regular';
-    src: url('../fonts/Sansation_Regular.ttf') format('truetype');
+    src: url('/fonts/Sansation_Regular.ttf') format('truetype');
     font-weight: 400;
     font-style: normal;
   }
 
   @font-face {
     font-family: 'Sansation Light';
-    src: url('../fonts/Sansation_Light.ttf') format('truetype');
+    src: url('/fonts/Sansation_Light.ttf') format('truetype');
     font-weight: 300;
     font-style: normal;
   }

@@ -10,7 +10,8 @@ import Navigation from "./components/Navigation.tsx";
 import {useFetch} from "./hooks/useFetch.ts";
 import EditTheme from "./pages/EditTheme.tsx";
 import RegisterPage from "./pages/RegisterPage.tsx";
-
+import {ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 
@@ -24,11 +25,10 @@ function App() {
     }, [me, fetchThemes])
 
     return (<>
-
             <GlobalStyle/>
-
+            <ToastContainer/>
             <Routes>
-                <Route element={<ProtectedRoutes user={user} />}>
+                <Route element={<ProtectedRoutes user={user}/>}>
 
                     <>
                         <Route path="/" element={<Home/>}/>
@@ -41,7 +41,7 @@ function App() {
                 <Route path="/register" element={<RegisterPage/>}/>
                 <Route path="/login" element={<LoginPage/>}/>
             </Routes>
-            {user !== "anonymousUser" &&  <Navigation/>}
+            {user !== "anonymousUser" && <Navigation/>}
 
         </>
     )

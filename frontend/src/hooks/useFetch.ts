@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { ThemeWithoutId, Theme } from "../utils/types.ts";
 import axios from "axios";
 import {NavigateFunction} from "react-router-dom";
+import {toast} from 'react-toastify';
 
 type State = {
     themes: Theme[],
@@ -44,7 +45,11 @@ export const useFetch = create<State>((set, get) => ({
         axios
             .delete(`/api/theme/${id}`)
             .then(fetchThemes)
-            .catch(console.error);
+            .then(() => toast.success("Theme successfully deleted!"))
+            .catch((error) => {
+                toast.error("Something went wrong!");
+                console.error(error);
+            });
     },
 
     postTheme: (requestBody: ThemeWithoutId) => {
@@ -52,7 +57,12 @@ export const useFetch = create<State>((set, get) => ({
         axios
             .post("/api/theme", requestBody)
             .then(fetchThemes)
-            .catch(console.error);
+            .then(() => toast.success("Theme successfully added!"))
+            .catch((error) => {
+                toast.error("Something went wrong!");
+                console.error(error);
+            });
+
     },
 
     putTheme: (requestBody: Theme) => {
@@ -61,7 +71,11 @@ export const useFetch = create<State>((set, get) => ({
         axios
             .put(`/api/theme/${id}`, themeWithoutId)
             .then(fetchThemes)
-            .catch(console.error);
+            .then(() => toast.success("Theme successfully updated!"))
+            .catch((error) => {
+                toast.error("Something went wrong!");
+                console.error(error);
+            });
     },
 
     getThemeById: (id: string | undefined) => {
@@ -98,10 +112,14 @@ export const useFetch = create<State>((set, get) => ({
             }
         })
             .then(response => {
-                set({user:response.data})
+                set({user: response.data})
                 navigate("/")
             })
-            .catch(console.error)
+            .then(() => toast.success("Login successful"))
+            .catch((error) => {
+                toast.error("You are not yet registered");
+                console.error(error);
+            });
     },
 
     me: () => {
@@ -119,10 +137,14 @@ export const useFetch = create<State>((set, get) => ({
 
             axios.post("/api/user/register", newUserData)
                 .then(response => {
-                    console.error(response)
-                    navigate("/login")
+                    console.error(response);
+                    navigate("/login");
                 })
-                .catch(console.error)
+                .then(()=>toast.success("Registration successful"))
+                .catch((error) => {
+                    console.error(error);
+                    toast.error("Please correct your Input");
+                })
 
         } else {
             setPassword("");
@@ -132,4 +154,3 @@ export const useFetch = create<State>((set, get) => ({
 
     // STORE END
 }));
-

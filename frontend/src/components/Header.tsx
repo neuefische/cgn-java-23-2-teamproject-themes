@@ -68,6 +68,7 @@ const StyledUser= styled.h2`
   font-family: var(--font2);
   font-size: 14px;
   position: absolute;
-  right: 4.5%;
-  top: 5px;
+  right: 50%;
+  transform: translateX(50%);
+  top: -10px;
     `;
